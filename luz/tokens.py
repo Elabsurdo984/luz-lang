@@ -10,6 +10,18 @@ class TokenType(Enum):
     RPAREN = auto()
     IDENTIFIER = auto()
     ASSIGN = auto()
+    EE = auto()          # ==
+    NE = auto()          # !=
+    LT = auto()          # <
+    GT = auto()          # >
+    LTE = auto()         # <=
+    GTE = auto()         # >=
+    IF = auto()
+    ELIF = auto()
+    ELSE = auto()
+    STRING = auto()
+    LBRACE = auto()      # {
+    RBRACE = auto()      # }
     EOF = auto()
 
 class Token:

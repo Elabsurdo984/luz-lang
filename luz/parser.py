@@ -5,6 +5,11 @@ class NumberNode:
         self.token = token
     def __repr__(self): return f"{self.token.value}"
 
+class StringNode:
+    def __init__(self, token):
+        self.token = token
+    def __repr__(self): return f"\"{self.token.value}\""
+
 class VarAccessNode:
     def __init__(self, token):
         self.token = token
@@ -23,6 +28,11 @@ class BinOpNode:
         self.right_node = right_node
     def __repr__(self): return f"({self.left_node} {self.op_token.type.name} {self.right_node})"
 
+class IfNode:
+    def __init__(self, cases, else_case):
+        self.cases = cases # List of (condition, block)
+        self.else_case = else_case # Block
+
 class Parser:
     def __init__(self, tokens):
         self.tokens = tokens
@@ -35,24 +45,79 @@ class Parser:
             self.current_token = self.tokens[self.pos]
 
     def parse(self):
-        return self.statement()
+        return self.statements()
+
+    def statements(self):
+        statements = []
+        while self.current_token.type != TokenType.EOF and self.current_token.type != TokenType.RBRACE:
+            statements.append(self.statement())
+        return statements
 
     def statement(self):
+        if self.current_token.type == TokenType.IF:
+            return self.if_expr()
+        
         if self.current_token.type == TokenType.IDENTIFIER:
-            var_name = self.current_token
-            self.advance()
-            if self.current_token.type == TokenType.ASSIGN:
-                self.advance()
+            # Lookahead for assignment
+            next_token = self.tokens[self.pos + 1] if self.pos + 1 < len(self.tokens) else None
+            if next_token and next_token.type == TokenType.ASSIGN:
+                var_name = self.current_token
+                self.advance() # identifier
+                self.advance() # =
                 expr = self.expr()
                 return VarAssignNode(var_name, expr)
-            else:
-                # Si no hay asignación, retrocedemos y tratamos como expresión
-                self.pos -= 1
-                self.current_token = self.tokens[self.pos]
         
         return self.expr()
 
+    def if_expr(self):
+        cases = []
+        else_case = None
+
+        # IF
+        self.advance()
+        condition = self.expr()
+        if self.current_token.type != TokenType.LBRACE:
+            raise Exception("Esperado '{' después de la condición de if")
+        self.advance()
+        block = self.statements()
+        if self.current_token.type != TokenType.RBRACE:
+            raise Exception("Esperado '}' después del bloque de if")
+        self.advance()
+        cases.append((condition, block))
+
+        # ELIF
+        while self.current_token.type == TokenType.ELIF:
+            self.advance()
+            condition = self.expr()
+            if self.current_token.type != TokenType.LBRACE:
+                raise Exception("Esperado '{' después de la condición de elif")
+            self.advance()
+            block = self.statements()
+            if self.current_token.type != TokenType.RBRACE:
+                raise Exception("Esperado '}' después del bloque de elif")
+            self.advance()
+            cases.append((condition, block))
+
+        # ELSE
+        if self.current_token.type == TokenType.ELSE:
+            self.advance()
+            if self.current_token.type != TokenType.LBRACE:
+                raise Exception("Esperado '{' después de else")
+            self.advance()
+            else_case = self.statements()
+            if self.current_token.type != TokenType.RBRACE:
+                raise Exception("Esperado '}' después del bloque de else")
+            self.advance()
+
+        return IfNode(cases, else_case)
+
     def expr(self):
+        return self.bin_op(self.comp_expr, (TokenType.EE, TokenType.NE, TokenType.LT, TokenType.GT, TokenType.LTE, TokenType.GTE))
+
+    def comp_expr(self):
+        return self.bin_op(self.arith_expr, (TokenType.PLUS, TokenType.MINUS))
+
+    def arith_expr(self):
         return self.bin_op(self.term, (TokenType.PLUS, TokenType.MINUS))
 
     def term(self):
@@ -63,6 +128,9 @@ class Parser:
         if token.type == TokenType.NUMBER:
             self.advance()
             return NumberNode(token)
+        elif token.type == TokenType.STRING:
+            self.advance()
+            return StringNode(token)
         elif token.type == TokenType.IDENTIFIER:
             self.advance()
             return VarAccessNode(token)
@@ -72,7 +140,7 @@ class Parser:
             if self.current_token.type == TokenType.RPAREN:
                 self.advance()
                 return expr
-        raise Exception("Sintaxis inválida")
+        raise Exception(f"Sintaxis inválida en token: {token}")
 
     def bin_op(self, func, ops):
         left = func()

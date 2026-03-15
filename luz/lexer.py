@@ -2,6 +2,12 @@ import string
 from .tokens import TokenType, Token
 
 class Lexer:
+    KEYWORDS = {
+        'if': TokenType.IF,
+        'elif': TokenType.ELIF,
+        'else': TokenType.ELSE,
+    }
+
     def __init__(self, text):
         self.text = text
         self.pos = 0
@@ -33,7 +39,50 @@ class Lexer:
             id_str += self.current_char
             self.advance()
         
-        return Token(TokenType.IDENTIFIER, id_str)
+        token_type = self.KEYWORDS.get(id_str, TokenType.IDENTIFIER)
+        return Token(token_type, id_str if token_type == TokenType.IDENTIFIER else None)
+
+    def make_string(self):
+        string_val = ''
+        self.advance() # Saltar la primera comilla
+        
+        while self.current_char is not None and self.current_char != '"':
+            string_val += self.current_char
+            self.advance()
+        
+        if self.current_char != '"':
+            raise Exception("String no cerrado con '\"'")
+        
+        self.advance() # Saltar la última comilla
+        return Token(TokenType.STRING, string_val)
+
+    def make_equals(self):
+        self.advance()
+        if self.current_char == '=':
+            self.advance()
+            return Token(TokenType.EE)
+        return Token(TokenType.ASSIGN)
+
+    def make_not_equals(self):
+        self.advance()
+        if self.current_char == '=':
+            self.advance()
+            return Token(TokenType.NE)
+        raise Exception("Esperado '=' después de '!'")
+
+    def make_less_than(self):
+        self.advance()
+        if self.current_char == '=':
+            self.advance()
+            return Token(TokenType.LTE)
+        return Token(TokenType.LT)
+
+    def make_greater_than(self):
+        self.advance()
+        if self.current_char == '=':
+            self.advance()
+            return Token(TokenType.GTE)
+        return Token(TokenType.GT)
 
     def get_tokens(self):
         tokens = []
@@ -44,6 +93,8 @@ class Lexer:
                 tokens.append(self.make_number())
             elif self.current_char in string.ascii_letters:
                 tokens.append(self.make_identifier())
+            elif self.current_char == '"':
+                tokens.append(self.make_string())
             elif self.current_char == '+':
                 tokens.append(Token(TokenType.PLUS))
                 self.advance()
@@ -62,9 +113,20 @@ class Lexer:
             elif self.current_char == ')':
                 tokens.append(Token(TokenType.RPAREN))
                 self.advance()
-            elif self.current_char == '=':
-                tokens.append(Token(TokenType.ASSIGN))
+            elif self.current_char == '{':
+                tokens.append(Token(TokenType.LBRACE))
                 self.advance()
+            elif self.current_char == '}':
+                tokens.append(Token(TokenType.RBRACE))
+                self.advance()
+            elif self.current_char == '=':
+                tokens.append(self.make_equals())
+            elif self.current_char == '!':
+                tokens.append(self.make_not_equals())
+            elif self.current_char == '<':
+                tokens.append(self.make_less_than())
+            elif self.current_char == '>':
+                tokens.append(self.make_greater_than())
             else:
                 raise Exception(f"Carácter ilegal: '{self.current_char}'")
         
