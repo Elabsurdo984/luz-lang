@@ -24,6 +24,11 @@ class Lexer:
         while self.current_char is not None and self.current_char.isspace():
             self.advance()
 
+    def skip_comment(self):
+        while self.current_char is not None and self.current_char != '\n':
+            self.advance()
+        self.advance()
+
     def make_number(self):
         num_str = ''
         dot_count = 0
@@ -96,6 +101,8 @@ class Lexer:
                 tokens.append(self.make_number())
             elif self.current_char in string.ascii_letters:
                 tokens.append(self.make_identifier())
+            elif self.current_char == '#':
+                self.skip_comment()
             elif self.current_char == '"':
                 tokens.append(self.make_string())
             elif self.current_char == '+':
