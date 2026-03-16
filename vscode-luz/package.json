@@ -1,0 +1,26 @@
+{
+    "name": "luz-syntax",
+    "displayName": "Luz Syntax Highlighter",
+    "description": "Syntax highlighting for the Luz Programming Language",
+    "version": "1.0.0",
+    "publisher": "Elabsurdo984",
+    "engines": {
+        "vscode": "^1.50.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "luz",
+            "aliases": ["Luz", "luz"],
+            "extensions": [".luz"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "luz",
+            "scopeName": "source.luz",
+            "path": "./syntaxes/luz.tmLanguage.json"
+        }]
+    }
+}
