@@ -227,6 +227,10 @@ class Interpreter:
         res = self.visit(node.node)
         if node.op_token.type == TokenType.NOT:
             return not res
+        if node.op_token.type == TokenType.MINUS:
+            if not isinstance(res, (int, float)):
+                raise TypeClashFault(f"Unary '-' cannot be applied to type '{type(res).__name__}'")
+            return -res
         return res
 
     def visit_VarAssignNode(self, node):

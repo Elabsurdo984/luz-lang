@@ -383,7 +383,11 @@ class Parser:
     def factor(self):
         token = self.current_token
         node = None
-        
+
+        if token.type == TokenType.MINUS:
+            self.advance()
+            return UnaryOpNode(token, self.factor())
+
         if token.type in (TokenType.INT, TokenType.FLOAT):
             self.advance()
             node = NumberNode(token)

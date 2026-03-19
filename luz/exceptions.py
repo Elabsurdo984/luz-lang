@@ -34,6 +34,7 @@ class ScopeFault(SemanticFault): pass
 class FunctionNotFoundFault(SemanticFault): pass
 class ArgumentFault(SemanticFault): pass
 class ArityFault(SemanticFault): pass
+class InvalidUsageFault(SemanticFault): pass
 # Control Flow
 class FlowControlFault(SemanticFault): pass
 class ReturnFault(SemanticFault): pass
@@ -43,6 +44,7 @@ class LoopFault(SemanticFault): pass
 class RuntimeFault(LuzError): pass
 class ExecutionFault(RuntimeFault): pass
 class InternalFault(RuntimeFault): pass
+class IllegalOperationFault(RuntimeFault): pass
 # Mathematical
 class NumericFault(RuntimeFault): pass
 class ZeroDivisionFault(NumericFault): pass
