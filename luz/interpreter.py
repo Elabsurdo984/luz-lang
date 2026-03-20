@@ -1,19 +1,74 @@
+# interpreter.py
+#
+# The Interpreter is the final stage of the Luz pipeline.  It walks the Abstract
+# Syntax Tree (AST) produced by the Parser and evaluates each node, ultimately
+# producing side effects (I/O, variable mutations) and return values.
+#
+# Pipeline position:
+#   list[ASTNode] → [Interpreter.visit()] → runtime values / side effects
+#
+# Design: Tree-Walking Interpreter
+# ─────────────────────────────────
+# Rather than compiling to bytecode, Luz uses a simple tree-walking approach:
+# each AST node is visited directly, its children are recursively visited, and
+# the Python call stack mirrors the Luz call stack.  This is easy to understand
+# and debug, though it is slower than bytecode interpretation for large programs.
+#
+# Visitor Pattern
+# ───────────────
+# visit() inspects the class name of the incoming node and dynamically resolves
+# a method called visit_<ClassName> (e.g. visit_BinOpNode).  This avoids a
+# large if/elif chain and makes it trivial to add new node types: just add a
+# corresponding visit_ method.
+#
+# Scoping
+# ───────
+# Variables live in Environment objects that form a chain.  Each block (loop
+# body, function body) gets its own Environment whose parent is the enclosing
+# scope.  Variable lookup walks up the chain; assignment also walks up unless a
+# function-scope boundary is encountered (preventing closures from accidentally
+# mutating caller variables).
+#
+# Control Flow via Exceptions
+# ───────────────────────────
+# `return`, `break`, and `continue` are implemented by raising special exception
+# classes (ReturnException, BreakException, ContinueException) defined in
+# exceptions.py.  The loop/function visitors catch exactly these exceptions to
+# implement the semantics.  They are never caught by the Luz `attempt/rescue`
+# construct — that only catches real errors.
+
 from .tokens import TokenType
 from .exceptions import *
 from .lexer import Lexer
 from .parser import Parser
 import os
 
+
+# ── Environment (variable store) ─────────────────────────────────────────────
+
+# Environment implements a lexically scoped variable store.
+# Each environment has an optional parent; lookups that fail locally are
+# forwarded to the parent recursively, walking the scope chain upward.
+#
+# The is_function_scope flag marks the boundary created when a function is
+# called.  This boundary stops assignment from "leaking" through the closure:
+# inside a function, assigning to a name that doesn't exist locally creates a
+# new local variable rather than modifying the caller's variable.
 class Environment:
     def __init__(self, parent=None, is_function_scope=False):
-        self.records = {}
-        self.parent = parent
+        self.records = {}             # Maps variable name → current value
+        self.parent = parent          # Enclosing scope (None for global)
         self.is_function_scope = is_function_scope
 
+    # define() unconditionally sets a name in the current scope.
+    # Used when entering a for-loop (to bind the loop variable) and when
+    # binding function parameters.
     def define(self, name, value):
         self.records[name] = value
         return value
 
+    # lookup() searches the scope chain upward until it finds the name or
+    # reaches the top-level global scope with no parent.
     def lookup(self, name):
         if name in self.records:
             return self.records[name]
@@ -21,42 +76,90 @@ class Environment:
             return self.parent.lookup(name)
         raise UndefinedSymbolFault(f"Symbol '{name}' is not defined in the current scope")
 
+    # assign() updates an existing variable, or creates it at the appropriate
+    # scope level if it doesn't exist yet.
+    #
+    # Scope walk rules:
+    #   1. If the name exists in the current scope, update it here.
+    #   2. If we have a parent AND this is NOT a function boundary, delegate
+    #      upward — this lets an if/while/for block read+write outer variables.
+    #   3. At a function boundary (or the global scope), create the variable
+    #      here so it stays local to the function.
     def assign(self, name, value):
         if name in self.records:
             self.records[name] = value
             return value
-        # Walk up only if we haven't hit a function boundary
+        # Walk up only if we haven't hit a function boundary.
+        # Stopping at function boundaries prevents accidental closure mutation:
+        #   x = 1
+        #   function f() { x = 2 }   # should NOT change the outer x
         if self.parent and not self.is_function_scope:
             return self.parent.assign(name, value)
-        # Function scope or global: create the variable here
+        # Function scope or global: create the variable here rather than raising.
         self.records[name] = value
         return value
 
+
+# ── Function representation ───────────────────────────────────────────────────
+
+# LuzFunction wraps a FuncDefNode (the parsed function definition) together with
+# the environment that was active when the function was defined (the closure).
+# When the function is called, a fresh child environment of the closure is
+# created so that:
+#   • Each call gets its own isolated set of local variables.
+#   • The function can still read variables from the scope where it was defined
+#     (classic lexical closure behaviour).
 class LuzFunction:
     def __init__(self, node, closure):
-        self.node = node
-        self.closure = closure
+        self.node = node          # FuncDefNode — holds parameter names and body
+        self.closure = closure    # The Environment captured at definition time
 
+    # __call__ is invoked by the interpreter's visit_CallNode.
+    # It validates the argument count, binds parameters to a new environment,
+    # runs the body, and catches ReturnException to extract the return value.
+    # If the body completes without a `return`, None is returned implicitly.
     def __call__(self, interpreter, arguments):
         if len(arguments) != len(self.node.arg_tokens):
             raise ArityFault(f"Function '{self.node.name_token.value}' expects {len(self.node.arg_tokens)} arguments, but received {len(arguments)}")
-            
+
+        # Create a new child of the closure so parameters are local to this call.
+        # is_function_scope=True prevents assignments inside the body from
+        # walking up into the caller's environment.
         env = Environment(self.closure, is_function_scope=True)
         for i in range(len(self.node.arg_tokens)):
             env.define(self.node.arg_tokens[i].value, arguments[i])
-        
+
         try:
             interpreter.execute_block(self.node.block, env)
         except ReturnException as e:
+            # `return expr` unwinds the call stack via exception; we catch it
+            # here (exactly one frame above the body) and extract the value.
             return e.value
-        return None
+        return None  # Implicit return value when no `return` statement is reached
+
+
+# ── Interpreter ───────────────────────────────────────────────────────────────
 
 class Interpreter:
     def __init__(self):
+        # The global environment is the root of the scope chain.
+        # All top-level variables and functions live here.
         self.global_env = Environment()
         self.current_env = self.global_env
+
+        # Tracks absolute paths of already-imported files to prevent circular
+        # imports and redundant re-execution of modules.
         self.imported_files = set()
+
+        # current_line is updated by visit() as nodes are processed.
+        # When an error is raised without a line number, this value is attached
+        # to give the user a useful "error at line N" message.
         self.current_line = None
+
+        # builtins maps function names that are always in scope to Python
+        # methods on this object.  Checking builtins before looking up in the
+        # environment means built-in names shadow any user-defined function with
+        # the same name (consistent, predictable behaviour).
         self.builtins = {
             'write': self.builtin_write,
             'listen': self.builtin_listen,
@@ -84,6 +187,11 @@ class Interpreter:
             'count': self.builtin_count,
         }
 
+    # execute_block() runs a list of statements inside a given environment.
+    # It temporarily replaces current_env with the provided env, then restores
+    # the previous env in a finally block so that control-flow exceptions
+    # (ReturnException, BreakException) don't leave the interpreter in the wrong
+    # scope if they bubble past this frame.
     def execute_block(self, block, env):
         previous_env = self.current_env
         self.current_env = env
@@ -93,10 +201,24 @@ class Interpreter:
                 result = self.visit(statement)
             return result
         finally:
-            self.current_env = previous_env
+            self.current_env = previous_env  # Always restore, even on exception
 
+    # visit() is the central dispatch method of the interpreter.
+    #
+    # It accepts either a single ASTNode or a list of nodes (treating a list as
+    # an implicit block, which is the format statements() returns).
+    #
+    # For each node it:
+    #   1. Updates current_line for error reporting.
+    #   2. Looks up a visit_<ClassName> method via getattr.
+    #   3. Calls that method and returns its result.
+    #   4. If a LuzError is raised and has no line number yet, stamps it with
+    #      current_line before re-raising so the user sees "error at line N".
+    #      Control-flow signals (Return/Break/Continue) are excluded from this
+    #      treatment because they are not errors and should not carry line info.
     def visit(self, node):
         if isinstance(node, list):
+            # Convenience: visit a whole block without creating an explicit node.
             result = None
             for statement in node:
                 result = self.visit(statement)
@@ -111,26 +233,40 @@ class Interpreter:
         try:
             return method(node)
         except LuzError as e:
+            # Don't stamp line numbers onto control-flow signals — they are
+            # not errors and their "line" would be misleading.
             if not isinstance(e, (ReturnException, BreakException, ContinueException)) and e.line is None:
                 e.line = self.current_line
             raise
 
+    # no_visit_method() is the fallback when visit() cannot find a handler for
+    # a node type.  This indicates a bug in the interpreter (a node class was
+    # added to the parser but a corresponding visit_ method was never written).
     def no_visit_method(self, node):
         raise InternalFault(f"No visit_{type(node).__name__} method defined in the interpreter")
 
+    # ── Literal value visitors ────────────────────────────────────────────────
+    # These simply unwrap the Python value that the lexer already parsed.
+
     def visit_NumberNode(self, node):
+        # The lexer already converted the source text to int or float.
         return node.token.value
 
     def visit_StringNode(self, node):
+        # The lexer already processed escape sequences; the value is a clean string.
         return node.token.value
 
     def visit_BooleanNode(self, node):
+        # TokenType.TRUE/FALSE → Python True/False
         return True if node.token.type == TokenType.TRUE else False
 
     def visit_ListNode(self, node):
+        # Evaluate every element expression and collect the results into a Python list.
         return [self.visit(element) for element in node.elements]
 
     def visit_DictNode(self, node):
+        # Evaluate each key and value expression in order and populate a Python dict.
+        # Dictionary keys may be any hashable Luz value (string, int, float, bool).
         res = {}
         for key_node, value_node in node.pairs:
             key = self.visit(key_node)
@@ -138,10 +274,15 @@ class Interpreter:
             res[key] = value
         return res
 
+    # ── Index access & assignment ─────────────────────────────────────────────
+
+    # visit_IndexAccessNode() handles `base[index]` for lists, strings, and dicts.
+    # Each container type has slightly different rules (lists/strings require int
+    # indices; dicts accept any hashable type).
     def visit_IndexAccessNode(self, node):
         base = self.visit(node.base_node)
         index = self.visit(node.index_node)
-        
+
         if isinstance(base, list):
             if not isinstance(index, int):
                 raise TypeViolationFault(f"List index must be an integer, not {type(index).__name__}")
@@ -162,15 +303,21 @@ class Interpreter:
             except KeyError:
                 raise MemoryAccessFault(f"Key '{index}' not found in dictionary")
             except TypeError:
+                # Python raises TypeError when you try to use an unhashable value
+                # (e.g. a list) as a dict key.
                 raise TypeViolationFault(f"Unhashable type: '{type(index).__name__}' cannot be used as a dictionary key")
         else:
             raise InvalidUsageFault(f"Type '{type(base).__name__}' does not support indexing")
 
+    # visit_IndexAssignNode() handles `base[index] = value`.
+    # Because lists and dicts in Luz are passed by reference (they are plain
+    # Python objects), mutating `base` here automatically updates the variable
+    # that holds the list/dict — no additional environment update is needed.
     def visit_IndexAssignNode(self, node):
         base = self.visit(node.base_node)
         index = self.visit(node.index_node)
         value = self.visit(node.value_node)
-        
+
         if isinstance(base, list):
             if not isinstance(index, int):
                 raise TypeViolationFault(f"List index must be an integer, not {type(index).__name__}")
@@ -188,13 +335,29 @@ class Interpreter:
         else:
             raise InvalidUsageFault(f"Type '{type(base).__name__}' does not support index assignment")
 
+    # ── Error handling ────────────────────────────────────────────────────────
+
+    # visit_AttemptRescueNode() implements structured error handling.
+    # The try block is run; if a LuzError is raised (and it is NOT a control-flow
+    # signal), the error message is bound to the rescue variable and the catch
+    # block runs in a fresh child environment.
+    #
+    # Control-flow signals (return/break/continue) are deliberately re-raised
+    # without being caught so they continue unwinding to the correct handler.
+    #
+    # Non-LuzError Python exceptions (true internal bugs) are also caught and
+    # surfaced as a string prefixed with "InternalFault:" so the Luz programmer
+    # at least sees something useful rather than a raw Python traceback.
     def visit_AttemptRescueNode(self, node):
         try:
             return self.visit(node.try_block)
         except LuzError as e:
             if isinstance(e, (ReturnException, BreakException, ContinueException)):
+                # These are control-flow signals, not errors — let them propagate.
                 raise e
-            
+
+            # Run the rescue block in a new child scope so the error variable
+            # does not leak into the surrounding environment after the block ends.
             previous_env = self.current_env
             rescue_env = Environment(previous_env)
             self.current_env = rescue_env
@@ -204,6 +367,8 @@ class Interpreter:
             finally:
                 self.current_env = previous_env
         except Exception as e:
+            # Catch unexpected Python exceptions (interpreter bugs) so Luz code
+            # can at least observe that something went wrong.
             previous_env = self.current_env
             rescue_env = Environment(previous_env)
             self.current_env = rescue_env
@@ -213,17 +378,33 @@ class Interpreter:
             finally:
                 self.current_env = previous_env
 
+    # visit_AlertNode() implements the `alert` statement, which intentionally
+    # raises a UserFault.  This is Luz's mechanism for user-level errors —
+    # analogous to `raise` in Python or `throw` in JavaScript.
     def visit_AlertNode(self, node):
         msg = self.visit(node.expression_node)
         raise UserFault(str(msg))
 
+    # ── Module import ─────────────────────────────────────────────────────────
+
+    # visit_ImportNode() loads and executes another Luz source file.
+    # Imported modules run their top-level statements in the global environment
+    # so that functions and variables they define are available everywhere.
+    #
+    # The imported_files set (keyed by absolute path) prevents:
+    #   • The same file from being imported twice (idempotent imports).
+    #   • Infinite import cycles (A imports B which imports A).
+    #
+    # The absolute path is added to imported_files BEFORE the module is executed
+    # so that if the module itself triggers a re-import of the same file, the
+    # set check catches it immediately.
     def visit_ImportNode(self, node):
         file_path = node.file_path_token.value
         abs_path = os.path.abspath(file_path)
-        
+
         if abs_path in self.imported_files:
-            return None
-            
+            return None  # Already imported — skip silently
+
         try:
             with open(file_path, 'r', encoding='utf-8') as f:
                 code = f.read()
@@ -231,29 +412,35 @@ class Interpreter:
             raise ModuleNotFoundFault(f"Module file '{file_path}' not found")
         except Exception as e:
             raise ImportFault(f"Failed to read module '{file_path}': {str(e)}")
-            
+
+        # Register before executing to guard against circular imports.
         self.imported_files.add(abs_path)
-        
+
         try:
             lexer = Lexer(code)
             tokens = lexer.get_tokens()
             parser = Parser(tokens)
             ast = parser.parse()
-            
+
+            # Switch to the global env for module execution so definitions land
+            # at the top level regardless of where `import` appeared in the code.
             temp_env = self.current_env
             self.current_env = self.global_env
             try:
                 self.visit(ast)
             finally:
-                self.current_env = temp_env
-                
+                self.current_env = temp_env  # Restore the caller's env
+
         except LuzError as e:
             raise ImportFault(f"Error in module '{file_path}': {str(e)}")
         except Exception as e:
             raise ImportFault(f"Unexpected error in module '{file_path}': {str(e)}")
-            
+
         return None
 
+    # ── Operators ─────────────────────────────────────────────────────────────
+
+    # visit_UnaryOpNode() handles negation (-x) and logical not (not x).
     def visit_UnaryOpNode(self, node):
         res = self.visit(node.node)
         if node.op_token.type == TokenType.NOT:
@@ -264,51 +451,71 @@ class Interpreter:
             return -res
         return res
 
+    # visit_VarAssignNode() evaluates the right-hand side and stores it.
+    # Environment.assign() handles the scope chain walk.
     def visit_VarAssignNode(self, node):
         var_name = node.var_name_token.value
         value = self.visit(node.value_node)
         self.current_env.assign(var_name, value)
         return value
 
+    # visit_VarAccessNode() retrieves the value of a variable by walking the
+    # scope chain via Environment.lookup().
     def visit_VarAccessNode(self, node):
         var_name = node.token.value
         return self.current_env.lookup(var_name)
 
+    # visit_BinOpNode() dispatches to the appropriate Python operation based on
+    # the operator token.  Most operations delegate to Python's native operators;
+    # additional checks are added where Luz semantics differ (e.g. `/` always
+    # produces a float, string * int is allowed for repetition).
     def visit_BinOpNode(self, node):
         left = self.visit(node.left_node)
         right = self.visit(node.right_node)
 
         if node.op_token.type == TokenType.PLUS:
+            # `+` on strings performs concatenation (Python native behaviour).
             try:
                 return left + right
             except TypeError:
                 raise TypeClashFault(f"Cannot perform addition between {type(left).__name__} and {type(right).__name__}")
+
         elif node.op_token.type == TokenType.MINUS:
             try:
                 return left - right
             except TypeError:
                 raise IllegalOperationFault(f"Unsupported operand types for '-': {type(left).__name__} and {type(right).__name__}")
+
         elif node.op_token.type == TokenType.MUL:
+            # Allow string repetition: "ab" * 3 == "ababab"
+            # The right operand is truncated to int because Luz floats are
+            # valid numbers but Python str * float is not allowed.
             if isinstance(left, str) and isinstance(right, (int, float)):
                 return left * int(right)
             try:
                 return left * right
             except TypeError:
                 raise IllegalOperationFault(f"Multiplication is not supported for {type(left).__name__} and {type(right).__name__}")
+
         elif node.op_token.type == TokenType.DIV:
+            # `/` always returns a float in Luz, matching the intuitive
+            # expectation that 5 / 2 == 2.5, not 2.
             if right == 0:
                 raise ZeroDivisionFault("Division by zero is not allowed")
             try:
                 return float(left) / float(right)
             except TypeError:
                 raise IllegalOperationFault(f"Unsupported operand types for '/': {type(left).__name__} and {type(right).__name__}")
+
         elif node.op_token.type == TokenType.IDIV:
+            # `//` truncates towards negative infinity (Python floor division).
             if right == 0:
                 raise ZeroDivisionFault("Integer division by zero is not allowed")
             try:
                 return int(left) // int(right)
             except TypeError:
                 raise IllegalOperationFault(f"Unsupported operand types for '//': {type(left).__name__} and {type(right).__name__}")
+
         elif node.op_token.type == TokenType.MOD:
             if right == 0:
                 raise ZeroDivisionFault("Modulo by zero is not allowed")
@@ -316,15 +523,22 @@ class Interpreter:
                 return left % right
             except TypeError:
                 raise IllegalOperationFault(f"Unsupported operand types for '%': {type(left).__name__} and {type(right).__name__}")
+
         elif node.op_token.type == TokenType.POW:
             try:
                 return left ** right
             except TypeError:
                 raise IllegalOperationFault(f"Unsupported operand types for '**': {type(left).__name__} and {type(right).__name__}")
+
+        # Equality operators work across any types (mixed-type comparison just
+        # returns False/True without raising an error).
         elif node.op_token.type == TokenType.EE:
             return left == right
         elif node.op_token.type == TokenType.NE:
             return left != right
+
+        # Ordered comparisons require compatible types; Python raises TypeError
+        # for incompatible types (e.g. int < str), which we wrap.
         elif node.op_token.type == TokenType.LT:
             try: return left < right
             except TypeError: raise TypeClashFault("Incompatible types for comparison '<'")
@@ -337,11 +551,19 @@ class Interpreter:
         elif node.op_token.type == TokenType.GTE:
             try: return left >= right
             except TypeError: raise TypeClashFault("Incompatible types for comparison '>='")
+
+        # Logical operators use Python short-circuit semantics.
+        # `and` returns the first falsy value or the last value if all are truthy.
+        # `or`  returns the first truthy value or the last value if all are falsy.
         elif node.op_token.type == TokenType.AND:
             return left and right
         elif node.op_token.type == TokenType.OR:
             return left or right
 
+    # ── Control-flow visitors ─────────────────────────────────────────────────
+
+    # visit_IfNode() evaluates the condition of each case in order and executes
+    # the first block whose condition is truthy.  Only one branch ever runs.
     def visit_IfNode(self, node):
         for condition, block in node.cases:
             if self.visit(condition):
@@ -350,6 +572,8 @@ class Interpreter:
             return self.visit(node.else_case)
         return None
 
+    # visit_WhileNode() re-evaluates the condition before every iteration.
+    # BreakException exits the loop; ContinueException skips to the next check.
     def visit_WhileNode(self, node):
         while self.visit(node.condition_node):
             try:
@@ -360,6 +584,10 @@ class Interpreter:
                 continue
         return None
 
+    # visit_ForNode() implements the numeric range loop: for i = start to end
+    # The loop variable is defined fresh each iteration in the loop's own scope
+    # so that changes inside the body don't corrupt the counter (and to prevent
+    # the variable from polluting the surrounding scope after the loop).
     def visit_ForNode(self, node):
         var_name = node.var_name_token.value
         start_value = self.visit(node.start_value_node)
@@ -369,62 +597,91 @@ class Interpreter:
             raise TypeViolationFault("For loop range boundaries must be numeric")
 
         i = start_value
+        # Create a dedicated child environment for the loop so the counter
+        # variable (and any variables defined inside the body) don't leak out.
         previous_env = self.current_env
         self.current_env = Environment(previous_env)
         try:
             while i <= end_value:
+                # Re-define the loop variable each iteration so it always
+                # reflects the current counter value.
                 self.current_env.define(var_name, i)
                 try:
                     self.visit(node.block)
                 except BreakException:
                     break
                 except ContinueException:
-                    pass
+                    pass  # ContinueException just skips to the i += 1 below
                 i += 1
         finally:
-            self.current_env = previous_env
+            self.current_env = previous_env  # Restore scope even if an error escapes
         return None
 
+    # visit_BreakNode() and visit_ContinueNode() raise the corresponding signal
+    # exceptions, which unwind the call stack to the nearest loop visitor.
     def visit_BreakNode(self, node):
         raise BreakException()
 
     def visit_ContinueNode(self, node):
         raise ContinueException()
 
+    # visit_PassNode() is a no-op, used as a placeholder in empty blocks.
     def visit_PassNode(self, node):
         return None
 
+    # ── Function definition & calls ───────────────────────────────────────────
+
+    # visit_FuncDefNode() creates a LuzFunction that captures the current
+    # environment as its closure, then stores it in the environment under the
+    # function's name.  The function body is NOT executed here.
     def visit_FuncDefNode(self, node):
         func_name = node.name_token.value
         function = LuzFunction(node, self.current_env)
         self.current_env.define(func_name, function)
         return None
 
+    # visit_ReturnNode() evaluates the return expression (if any) and raises
+    # ReturnException to unwind the stack up to LuzFunction.__call__.
     def visit_ReturnNode(self, node):
         value = None
         if node.expression_node:
             value = self.visit(node.expression_node)
         raise ReturnException(value)
 
+    # visit_CallNode() looks up the callee by name, evaluates arguments in
+    # left-to-right order, and invokes the function.
+    # Built-in functions are checked first (they shadow user-defined functions).
     def visit_CallNode(self, node):
         func_name = node.func_name_token.value
+        # Arguments are fully evaluated before the call so their values are
+        # independent of the callee's scope.
         arguments = [self.visit(arg) for arg in node.arguments]
 
         if func_name in self.builtins:
             return self.builtins[func_name](*arguments)
-        
+
         try:
             function = self.current_env.lookup(func_name)
             if not isinstance(function, LuzFunction):
+                # The name exists but holds a non-callable value (e.g. a number).
                 raise InvalidUsageFault(f"'{func_name}' is not a callable function")
             return function(self, arguments)
         except UndefinedSymbolFault:
+            # Re-raise as FunctionNotFoundFault for a more descriptive message.
             raise FunctionNotFoundFault(f"Function '{func_name}' was not found")
         except LuzError as e:
-            raise e
+            raise e  # Preserve the original LuzError type (don't wrap it)
         except Exception as e:
             raise InternalFault(str(e))
 
+    # ── Built-in functions ────────────────────────────────────────────────────
+    # Built-ins are implemented as Python methods so they have full access to
+    # the host environment.  They receive already-evaluated Luz values as
+    # arguments (Python ints, floats, strs, lists, dicts, bools).
+
+    # write() is the standard output function.  Booleans are displayed as
+    # lowercase "true"/"false" (matching Luz syntax) rather than Python's
+    # "True"/"False".
     def builtin_write(self, *args):
         formatted_args = []
         for arg in args:
@@ -435,14 +692,18 @@ class Interpreter:
         print(*formatted_args)
         return None
 
+    # listen() reads a line from stdin.  It tries to parse the input as a
+    # number so that numeric I/O doesn't require an explicit cast.  If parsing
+    # fails (non-numeric input), the raw string is returned.
     def builtin_listen(self, prompt=""):
         res = input(prompt)
         try:
+            # A dot in the string suggests a float; otherwise try integer.
             if '.' in res:
                 return float(res)
             return int(res)
         except ValueError:
-            return res
+            return res  # Return as string when the input is not a number
 
     def builtin_len(self, obj):
         try:
@@ -453,9 +714,11 @@ class Interpreter:
     def builtin_append(self, list_obj, element):
         if not isinstance(list_obj, list):
             raise ArgumentFault("append() requires a list as its first argument")
-        list_obj.append(element)
+        list_obj.append(element)  # Mutates in place; caller's variable is updated automatically
         return None
 
+    # pop() removes and returns an element by index, or the last element if no
+    # index is given.  This matches Python's list.pop() behaviour.
     def builtin_pop(self, list_obj, index=None):
         if not isinstance(list_obj, list):
             raise ArgumentFault("pop() requires a list as its first argument")
@@ -471,6 +734,7 @@ class Interpreter:
     def builtin_keys(self, dict_obj):
         if not isinstance(dict_obj, dict):
             raise ArgumentFault("keys() requires a dictionary")
+        # Wrap in list() so the return value is a Luz list, not a Python dict_keys view.
         return list(dict_obj.keys())
 
     def builtin_values(self, dict_obj):
@@ -478,6 +742,8 @@ class Interpreter:
             raise ArgumentFault("values() requires a dictionary")
         return list(dict_obj.values())
 
+    # remove() deletes a key from a dictionary and returns its former value
+    # (analogous to Python's dict.pop()).
     def builtin_remove(self, dict_obj, key):
         if not isinstance(dict_obj, dict):
             raise ArgumentFault("remove() requires a dictionary")
@@ -488,6 +754,10 @@ class Interpreter:
         except TypeError:
             raise TypeViolationFault(f"Invalid key type: '{type(key).__name__}'")
 
+    # ── Type-casting built-ins ────────────────────────────────────────────────
+
+    # to_num() converts a value to the most appropriate numeric type:
+    # if the string contains a dot it becomes a float, otherwise an int.
     def builtin_to_num(self, value):
         try:
             if isinstance(value, str) and '.' not in value:
@@ -496,6 +766,8 @@ class Interpreter:
         except (ValueError, TypeError):
             raise CastFault(f"Cannot cast value '{value}' to Number")
 
+    # to_int() casts via float first so that "3.7" → 3 works correctly (without
+    # float(), int("3.7") would raise ValueError).
     def builtin_to_int(self, value):
         try:
             return int(float(value))
@@ -508,19 +780,27 @@ class Interpreter:
         except (ValueError, TypeError):
             raise CastFault(f"Cannot cast value '{value}' to Float")
 
+    # to_str() uses Luz boolean representation ("true"/"false") rather than
+    # Python's capitalised "True"/"False".
     def builtin_to_str(self, value):
         if isinstance(value, bool):
             return "true" if value else "false"
         return str(value)
 
     def builtin_to_bool(self, value):
+        # Delegates to Python's truthiness rules (0/empty-string/empty-list → False).
         return bool(value)
 
+    # ── String utility helpers ────────────────────────────────────────────────
+
+    # _require_str() is a DRY helper that validates the type of an argument
+    # before string operations, producing a consistent error message format.
     def _require_str(self, value, fname):
         if not isinstance(value, str):
             raise ArgumentFault(f"{fname}() requires a string, got '{type(value).__name__}'")
 
     def builtin_trim(self, s):
+        # Removes leading and trailing whitespace.
         self._require_str(s, 'trim')
         return s.strip()
 
@@ -532,6 +812,8 @@ class Interpreter:
         self._require_str(s, 'lowercase')
         return s.lower()
 
+    # swap() replaces all occurrences of `old` with `new` inside `s`.
+    # Named "swap" rather than "replace" to feel more natural in the language.
     def builtin_swap(self, s, old, new):
         self._require_str(s, 'swap')
         self._require_str(old, 'swap')
@@ -553,12 +835,18 @@ class Interpreter:
         self._require_str(sub, 'contains')
         return sub in s
 
+    # split() splits a string on a separator.  If no separator is given, Python
+    # splits on any whitespace and discards empty strings, which is the
+    # conventional default for a tokenising split.
     def builtin_split(self, s, sep=None):
         self._require_str(s, 'split')
         if sep is not None:
             self._require_str(sep, 'split')
         return s.split(sep)
 
+    # join() concatenates a list of strings with a separator.
+    # Non-string elements in the list are coerced with str() for convenience,
+    # matching Python's own join behaviour when iterating mixed lists.
     def builtin_join(self, sep, lst):
         self._require_str(sep, 'join')
         if not isinstance(lst, list):
@@ -568,11 +856,14 @@ class Interpreter:
         except TypeError:
             raise TypeViolationFault("join() list elements must be strings")
 
+    # find() returns the index of the first occurrence of `sub` in `s`, or -1
+    # if not found (mirroring Python's str.find()).
     def builtin_find(self, s, sub):
         self._require_str(s, 'find')
         self._require_str(sub, 'find')
         return s.find(sub)
 
+    # count() returns the number of non-overlapping occurrences of `sub` in `s`.
     def builtin_count(self, s, sub):
         self._require_str(s, 'count')
         self._require_str(sub, 'count')
