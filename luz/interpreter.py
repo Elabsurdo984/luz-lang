@@ -251,6 +251,8 @@ class Interpreter:
             'join': self.builtin_join,
             'find': self.builtin_find,
             'count': self.builtin_count,
+            'typeof': self.builtin_typeof,
+            'instanceof': self.builtin_instanceof,
         }
 
     # execute_block() runs a list of statements inside a given environment.
@@ -1019,3 +1021,44 @@ class Interpreter:
             extra['super'] = LuzSuperProxy(obj, obj.luz_class.parent)
 
         return method(self, [obj] + args, extra_bindings=extra)
+
+    # ── Type inspection built-ins ─────────────────────────────────────────────
+
+    # typeof() returns the type of a value as a string.
+    # For class instances it returns the class name, for primitives it returns
+    # the Luz type name ("int", "float", "string", "bool", "list", "dict").
+    def builtin_typeof(self, value):
+        if isinstance(value, LuzInstance):
+            return value.luz_class.name
+        if isinstance(value, LuzClass):
+            return "class"
+        if isinstance(value, LuzFunction):
+            return "function"
+        if isinstance(value, bool):
+            return "bool"
+        if isinstance(value, int):
+            return "int"
+        if isinstance(value, float):
+            return "float"
+        if isinstance(value, str):
+            return "string"
+        if isinstance(value, list):
+            return "list"
+        if isinstance(value, dict):
+            return "dict"
+        return "unknown"
+
+    # instanceof() returns true if value is an instance of the given class or
+    # any of its subclasses, walking up the hierarchy.
+    # This enables polymorphic checks: instanceof(dog, Animal) == true
+    def builtin_instanceof(self, value, luz_class):
+        if not isinstance(luz_class, LuzClass):
+            raise ArgumentFault("instanceof() second argument must be a class")
+        if not isinstance(value, LuzInstance):
+            return False
+        cls = value.luz_class
+        while cls is not None:
+            if cls is luz_class:
+                return True
+            cls = cls.parent
+        return False
