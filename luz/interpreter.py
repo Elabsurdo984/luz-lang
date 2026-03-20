@@ -67,7 +67,18 @@ class Interpreter:
             'to_int': self.builtin_to_int,
             'to_float': self.builtin_to_float,
             'to_str': self.builtin_to_str,
-            'to_bool': self.builtin_to_bool
+            'to_bool': self.builtin_to_bool,
+            'trim': self.builtin_trim,
+            'uppercase': self.builtin_uppercase,
+            'lowercase': self.builtin_lowercase,
+            'swap': self.builtin_swap,
+            'begins': self.builtin_begins,
+            'ends': self.builtin_ends,
+            'contains': self.builtin_contains,
+            'split': self.builtin_split,
+            'join': self.builtin_join,
+            'find': self.builtin_find,
+            'count': self.builtin_count,
         }
 
     def execute_block(self, block, env):
@@ -135,6 +146,13 @@ class Interpreter:
                 return base[index]
             except IndexError:
                 raise IndexFault(f"Index {index} is out of range for list of size {len(base)}")
+        elif isinstance(base, str):
+            if not isinstance(index, int):
+                raise TypeViolationFault(f"String index must be an integer, not {type(index).__name__}")
+            try:
+                return base[index]
+            except IndexError:
+                raise IndexFault(f"Index {index} is out of range for string of length {len(base)}")
         elif isinstance(base, dict):
             try:
                 return base[index]
@@ -487,3 +505,65 @@ class Interpreter:
 
     def builtin_to_bool(self, value):
         return bool(value)
+
+    def _require_str(self, value, fname):
+        if not isinstance(value, str):
+            raise ArgumentFault(f"{fname}() requires a string, got '{type(value).__name__}'")
+
+    def builtin_trim(self, s):
+        self._require_str(s, 'trim')
+        return s.strip()
+
+    def builtin_uppercase(self, s):
+        self._require_str(s, 'uppercase')
+        return s.upper()
+
+    def builtin_lowercase(self, s):
+        self._require_str(s, 'lowercase')
+        return s.lower()
+
+    def builtin_swap(self, s, old, new):
+        self._require_str(s, 'swap')
+        self._require_str(old, 'swap')
+        self._require_str(new, 'swap')
+        return s.replace(old, new)
+
+    def builtin_begins(self, s, prefix):
+        self._require_str(s, 'begins')
+        self._require_str(prefix, 'begins')
+        return s.startswith(prefix)
+
+    def builtin_ends(self, s, suffix):
+        self._require_str(s, 'ends')
+        self._require_str(suffix, 'ends')
+        return s.endswith(suffix)
+
+    def builtin_contains(self, s, sub):
+        self._require_str(s, 'contains')
+        self._require_str(sub, 'contains')
+        return sub in s
+
+    def builtin_split(self, s, sep=None):
+        self._require_str(s, 'split')
+        if sep is not None:
+            self._require_str(sep, 'split')
+        return s.split(sep)
+
+    def builtin_join(self, sep, lst):
+        self._require_str(sep, 'join')
+        if not isinstance(lst, list):
+            raise ArgumentFault("join() requires a list as second argument")
+        try:
+            return sep.join(str(item) if not isinstance(item, str) else item for item in lst)
+        except TypeError:
+            raise TypeViolationFault("join() list elements must be strings")
+
+    def builtin_find(self, s, sub):
+        self._require_str(s, 'find')
+        self._require_str(sub, 'find')
+        return s.find(sub)
+
+    def builtin_count(self, s, sub):
+        self._require_str(s, 'count')
+        self._require_str(sub, 'count')
+        return s.count(sub)

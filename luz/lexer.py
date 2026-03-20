@@ -73,13 +73,34 @@ class Lexer:
         token_type = self.KEYWORDS.get(id_str, TokenType.IDENTIFIER)
         return Token(token_type, id_str if token_type == TokenType.IDENTIFIER else None, line)
 
+    ESCAPE_SEQUENCES = {
+        'n': '\n',
+        't': '\t',
+        'r': '\r',
+        '\\': '\\',
+        '"': '"',
+    }
+
     def make_string(self):
         string_val = ''
         line = self.line
         self.advance() # Skip starting quote
 
         while self.current_char is not None and self.current_char != '"':
-            string_val += self.current_char
+            if self.current_char == '\\':
+                self.advance()
+                if self.current_char is None:
+                    e = InvalidTokenFault("Unexpected end of string after '\\'")
+                    e.line = line
+                    raise e
+                escaped = self.ESCAPE_SEQUENCES.get(self.current_char)
+                if escaped is None:
+                    e = InvalidTokenFault(f"Unknown escape sequence '\\{self.current_char}'")
+                    e.line = line
+                    raise e
+                string_val += escaped
+            else:
+                string_val += self.current_char
             self.advance()
 
         if self.current_char != '"':
