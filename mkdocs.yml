@@ -26,6 +26,8 @@ theme:
     - search.highlight
     - search.suggest
     - content.code.copy
+  logo: img/icon.png
+  favicon: img/icon.png
   icon:
     repo: fontawesome/brands/github
 

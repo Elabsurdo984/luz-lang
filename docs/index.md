@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="img/icon.png" alt="Luz logo" width="120">
+</p>
+
 # Luz Programming Language
 
 **Luz** is a lightweight, interpreted programming language written in Python. It is designed to be simple, readable, and easy to learn.
