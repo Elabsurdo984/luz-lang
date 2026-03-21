@@ -564,6 +564,10 @@ class Interpreter:
                 candidates += [
                     os.path.join(luz_home, "lib", name, f"{name}.luz"),
                     os.path.join(luz_home, "lib", name, "main.luz"),
+                    os.path.join(luz_home, "lib", f"luz-{name}", f"{name}.luz"),
+                    os.path.join(luz_home, "lib", f"luz-{name}", "main.luz"),
+                    os.path.join(luz_home, "lib", f"luz_{name}", f"{name}.luz"),
+                    os.path.join(luz_home, "lib", f"luz_{name}", "main.luz"),
                 ]
             # Development fallback: look in libs/ relative to cwd
             candidates += [
