@@ -565,6 +565,12 @@ class Interpreter:
                     os.path.join(luz_home, "lib", name, f"{name}.luz"),
                     os.path.join(luz_home, "lib", name, "main.luz"),
                 ]
+            # Development fallback: look in libs/ relative to cwd
+            candidates += [
+                os.path.join("libs", f"luz-{name}", f"{name}.luz"),
+                os.path.join("libs", name, f"{name}.luz"),
+                os.path.join("libs", name, "main.luz"),
+            ]
             for candidate in candidates:
                 if os.path.exists(candidate):
                     file_path = candidate
