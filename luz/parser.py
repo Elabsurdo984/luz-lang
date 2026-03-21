@@ -151,6 +151,14 @@ class ForNode:
         self.end_value_node = end_value_node
         self.block = block
 
+# Represents a for-each loop over a collection: for item in expr { block }
+# Works with lists, strings (iterates characters), and dicts (iterates keys).
+class ForEachNode:
+    def __init__(self, var_name_token, iterable_node, block):
+        self.var_name_token = var_name_token
+        self.iterable_node = iterable_node
+        self.block = block
+
 # Represents a function definition: function name(args) { block }
 # arg_tokens is a list of IDENTIFIER tokens (the parameter names).
 class FuncDefNode:
@@ -570,9 +578,10 @@ class Parser:
         node = WhileNode(condition, block); node.line = line
         return node
 
-    # for_expr() parses:  for var = start to end { body }
-    # This is a counted numeric range loop; general iteration over collections
-    # is not yet supported.
+    # for_expr() handles two loop forms:
+    #   Range loop:   for i = 0 to 10 { … }
+    #   For-each:     for item in list { … }
+    # After consuming the variable name, a one-token lookahead decides which form.
     def for_expr(self):
         line = self.current_token.line
         self.advance()  # Consume 'for'
@@ -580,8 +589,24 @@ class Parser:
             raise UnexpectedTokenFault("Expected variable name after 'for'")
         var_name = self.current_token
         self.advance()
+
+        if self.current_token.type == TokenType.IN:
+            # for-each: for item in <iterable> { body }
+            self.advance()  # Consume 'in'
+            iterable = self.expr()
+            if self.current_token.type != TokenType.LBRACE:
+                raise StructureFault("Expected '{' after for-each iterable")
+            self.advance()
+            block = self.statements()
+            if self.current_token.type != TokenType.RBRACE:
+                raise UnexpectedTokenFault("Expected '}' after for block")
+            self.advance()
+            node = ForEachNode(var_name, iterable, block); node.line = line
+            return node
+
+        # Range loop: for i = start to end { body }
         if self.current_token.type != TokenType.ASSIGN:
-            raise StructureFault("Expected '=' after for variable")
+            raise StructureFault("Expected '=' or 'in' after for variable")
         self.advance()  # Consume '='
         start_value = self.expr()
         if self.current_token.type != TokenType.TO:

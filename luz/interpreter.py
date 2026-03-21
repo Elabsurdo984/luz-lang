@@ -688,6 +688,31 @@ class Interpreter:
             self.current_env = previous_env  # Restore scope even if an error escapes
         return None
 
+    # visit_ForEachNode() iterates over a list, string, or dict.
+    # Lists and strings yield their elements/characters one by one.
+    # Dicts yield their keys (consistent with most languages and Python).
+    def visit_ForEachNode(self, node):
+        var_name = node.var_name_token.value
+        iterable = self.visit(node.iterable_node)
+
+        if not isinstance(iterable, (list, str, dict)):
+            raise TypeViolationFault(f"Cannot iterate over type '{type(iterable).__name__}' — expected list, string, or dict")
+
+        previous_env = self.current_env
+        self.current_env = Environment(previous_env)
+        try:
+            for item in iterable:
+                self.current_env.define(var_name, item)
+                try:
+                    self.visit(node.block)
+                except BreakException:
+                    break
+                except ContinueException:
+                    continue
+        finally:
+            self.current_env = previous_env
+        return None
+
     # visit_BreakNode() and visit_ContinueNode() raise the corresponding signal
     # exceptions, which unwind the call stack to the nearest loop visitor.
     def visit_BreakNode(self, node):

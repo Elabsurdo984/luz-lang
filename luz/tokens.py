@@ -57,6 +57,7 @@ class TokenType(Enum):
     WHILE = auto()
     FOR = auto()
     TO = auto()        # Used in for-range syntax:  for i = 0 to 10 { … }
+    IN = auto()        # Used in for-each syntax:   for item in list { … }
 
     # ── Boolean literals ──────────────────────────────────────────────────────
     TRUE = auto()
