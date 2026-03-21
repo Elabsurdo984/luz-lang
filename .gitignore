@@ -4,3 +4,11 @@ __pycache__/
 .idea/
 .vscode/
 *.log
+
+# PyInstaller
+dist/
+build/
+*.spec
+
+# MkDocs
+site/
