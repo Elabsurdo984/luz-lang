@@ -64,6 +64,16 @@ d.speak()
 | Error handling | `attempt { } rescue (e) { }` |
 | Import | `import "utils.luz"` |
 
+## Download
+
+<div style="text-align: center; margin: 1.5rem 0;">
+  <a href="https://github.com/Elabsurdo984/luz-lang/releases/latest/download/luz-1.8.0-setup.exe"
+     style="background:#e65100;color:white;padding:12px 28px;border-radius:8px;font-size:1rem;font-weight:bold;text-decoration:none;">
+    Download v1.8.0 for Windows
+  </a>
+  <p style="margin-top:0.75rem;color:#888;font-size:0.9rem;">No Python required · Adds <code>luz</code> to your PATH</p>
+</div>
+
 ## Get Started
 
-Head to [Installation](getting-started/installation.md) to set up Luz, or jump straight into the [Language Reference](language/types.md).
+Download the installer above, or head to [Installation](getting-started/installation.md) to run from source. Jump straight into the [Language Reference](language/types.md) to learn the syntax.
