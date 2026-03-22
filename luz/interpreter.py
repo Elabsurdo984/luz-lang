@@ -505,6 +505,22 @@ class Interpreter:
         # Evaluate every element expression and collect the results into a Python list.
         return [self.visit(element) for element in node.elements]
 
+    def visit_ListCompNode(self, node):
+        iterable = self.visit(node.iterable)
+        if not isinstance(iterable, (list, str)):
+            raise TypeClashFault(f"List comprehension requires a list or string, got {type(iterable).__name__}")
+        result = []
+        prev_env = self.current_env
+        self.current_env = Environment(parent=prev_env)
+        try:
+            for item in iterable:
+                self.current_env.define(node.var_token.value, item)
+                if node.condition is None or self.visit(node.condition):
+                    result.append(self.visit(node.expr))
+        finally:
+            self.current_env = prev_env
+        return result
+
     def visit_DictNode(self, node):
         # Evaluate each key and value expression in order and populate a Python dict.
         # Dictionary keys may be any hashable Luz value (string, int, float, bool).
