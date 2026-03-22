@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://elabsurdo984.github.io/luz-lang/stdlib/io/">
+        <link rel="canonical" href="https://elabsurdo984.github.io/luz-lang/stdlib/clock/">
       
       
-        <link rel="prev" href="../random/">
+        <link rel="prev" href="../system/">
       
       
-        <link rel="next" href="../system/">
+        <link rel="next" href="../../ray/">
       
       
         
@@ -27,7 +27,7 @@
     
     
       
-        <title>luz-io - Luz Language</title>
+        <title>luz-clock - Luz Language</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#luz-io" class="md-skip">
+        <a href="#luz-clock" class="md-skip">
           Skip to content
         </a>
       
@@ -113,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              luz-io
+              luz-clock
             
           </span>
         </div>
@@ -1158,37 +1158,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    luz-io
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../io/" class="md-nav__link">
         
   
   
@@ -1204,200 +1177,6 @@
   
 
       </a>
-      
-        
-
-  
-
-<nav class="md-nav md-nav--secondary" aria-label="On this page">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      On this page
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#files" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Files
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Files">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#copy_filesrc-dst" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        copy_file(src, dst)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#read_file_orpath-default_value" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        read_file_or(path, default_value)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#write_file_newpath-content" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        write_file_new(path, content)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#lines" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Lines
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Lines">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#read_linespath" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        read_lines(path)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#write_linespath-lines" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        write_lines(path, lines)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#append_linepath-line" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        append_line(path, line)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#count_linespath" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        count_lines(path)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#read_linepath-n" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        read_line(path, n)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#csv" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        CSV
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="CSV">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#read_csvpath" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        read_csv(path)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#read_csv_dictpath" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        read_csv_dict(path)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#write_csvpath-rows" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        write_csv(path, rows)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1435,10 +1214,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../clock/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    luz-clock
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1454,6 +1260,244 @@
   
 
       </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#moment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Moment
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Moment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#now" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        now()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#today" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        today()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#current_time" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        current_time()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stamp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        stamp()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#format" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Format
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Format">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fmtpattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        fmt(pattern)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#day_namen-day_shortn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        day_name(n) / day_short(n)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#month_namen-month_shortn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        month_name(n) / month_short(n)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#is_leapyr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        is_leap(yr)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#calc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Calc
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Calc">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sincets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        since(ts)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#diffts1-ts2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        diff(ts1, ts2)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add_secsts-n-add_minsts-n-add_hoursts-n-add_daysts-n" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        add_secs(ts, n) / add_mins(ts, n) / add_hours(ts, n) / add_days(ts, n)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#from_stampts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        from_stamp(ts)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parse_stampdate_str-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        parse_stamp(date_str, pattern)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#to_secsh-m-s" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        to_secs(h, m, s)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#from_secstotal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        from_secs(total)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1549,22 +1593,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#files" class="md-nav__link">
+  <a href="#moment" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Files
+        Moment
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Files">
+    <nav class="md-nav" aria-label="Moment">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#copy_filesrc-dst" class="md-nav__link">
+  <a href="#now" class="md-nav__link">
     <span class="md-ellipsis">
       
-        copy_file(src, dst)
+        now()
       
     </span>
   </a>
@@ -1572,10 +1616,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#read_file_orpath-default_value" class="md-nav__link">
+  <a href="#today" class="md-nav__link">
     <span class="md-ellipsis">
       
-        read_file_or(path, default_value)
+        today()
       
     </span>
   </a>
@@ -1583,10 +1627,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#write_file_newpath-content" class="md-nav__link">
+  <a href="#current_time" class="md-nav__link">
     <span class="md-ellipsis">
       
-        write_file_new(path, content)
+        current_time()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stamp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        stamp()
       
     </span>
   </a>
@@ -1599,22 +1654,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#lines" class="md-nav__link">
+  <a href="#format" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Lines
+        Format
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Lines">
+    <nav class="md-nav" aria-label="Format">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#read_linespath" class="md-nav__link">
+  <a href="#fmtpattern" class="md-nav__link">
     <span class="md-ellipsis">
       
-        read_lines(path)
+        fmt(pattern)
       
     </span>
   </a>
@@ -1622,10 +1677,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#write_linespath-lines" class="md-nav__link">
+  <a href="#day_namen-day_shortn" class="md-nav__link">
     <span class="md-ellipsis">
       
-        write_lines(path, lines)
+        day_name(n) / day_short(n)
       
     </span>
   </a>
@@ -1633,10 +1688,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#append_linepath-line" class="md-nav__link">
+  <a href="#month_namen-month_shortn" class="md-nav__link">
     <span class="md-ellipsis">
       
-        append_line(path, line)
+        month_name(n) / month_short(n)
       
     </span>
   </a>
@@ -1644,21 +1699,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#count_linespath" class="md-nav__link">
+  <a href="#is_leapyr" class="md-nav__link">
     <span class="md-ellipsis">
       
-        count_lines(path)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#read_linepath-n" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        read_line(path, n)
+        is_leap(yr)
       
     </span>
   </a>
@@ -1671,22 +1715,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#csv" class="md-nav__link">
+  <a href="#calc" class="md-nav__link">
     <span class="md-ellipsis">
       
-        CSV
+        Calc
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="CSV">
+    <nav class="md-nav" aria-label="Calc">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#read_csvpath" class="md-nav__link">
+  <a href="#sincets" class="md-nav__link">
     <span class="md-ellipsis">
       
-        read_csv(path)
+        since(ts)
       
     </span>
   </a>
@@ -1694,10 +1738,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#read_csv_dictpath" class="md-nav__link">
+  <a href="#diffts1-ts2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        read_csv_dict(path)
+        diff(ts1, ts2)
       
     </span>
   </a>
@@ -1705,10 +1749,54 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#write_csvpath-rows" class="md-nav__link">
+  <a href="#add_secsts-n-add_minsts-n-add_hoursts-n-add_daysts-n" class="md-nav__link">
     <span class="md-ellipsis">
       
-        write_csv(path, rows)
+        add_secs(ts, n) / add_mins(ts, n) / add_hours(ts, n) / add_days(ts, n)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#from_stampts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        from_stamp(ts)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parse_stampdate_str-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        parse_stamp(date_str, pattern)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#to_secsh-m-s" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        to_secs(h, m, s)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#from_secstotal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        from_secs(total)
       
     </span>
   </a>
@@ -1740,69 +1828,190 @@
   
 
 
-<h1 id="luz-io">luz-io<a class="headerlink" href="#luz-io" title="Permanent link">&para;</a></h1>
-<p>File I/O utilities included with Luz. No installation needed.</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>import &quot;io&quot;
+<h1 id="luz-clock">luz-clock<a class="headerlink" href="#luz-clock" title="Permanent link">&para;</a></h1>
+<p>Date and time utilities included with Luz. No installation needed.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>import &quot;clock&quot;
 </span></code></pre></div>
 <hr />
-<h2 id="files">Files<a class="headerlink" href="#files" title="Permanent link">&para;</a></h2>
-<h3 id="copy_filesrc-dst"><code>copy_file(src, dst)</code><a class="headerlink" href="#copy_filesrc-dst" title="Permanent link">&para;</a></h3>
-<p>Copies the contents of <code>src</code> into <code>dst</code>.</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>copy_file(&quot;input.txt&quot;, &quot;backup.txt&quot;)
+<h2 id="moment">Moment<a class="headerlink" href="#moment" title="Permanent link">&para;</a></h2>
+<h3 id="now"><code>now()</code><a class="headerlink" href="#now" title="Permanent link">&para;</a></h3>
+<p>Returns a dict with all components of the current local time.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>year</code></td>
+<td>Four-digit year</td>
+</tr>
+<tr>
+<td><code>month</code></td>
+<td>Month (1–12)</td>
+</tr>
+<tr>
+<td><code>day</code></td>
+<td>Day of month (1–31)</td>
+</tr>
+<tr>
+<td><code>hour</code></td>
+<td>Hour (0–23)</td>
+</tr>
+<tr>
+<td><code>min</code></td>
+<td>Minute (0–59)</td>
+</tr>
+<tr>
+<td><code>sec</code></td>
+<td>Second (0–59)</td>
+</tr>
+<tr>
+<td><code>ms</code></td>
+<td>Milliseconds (0–999)</td>
+</tr>
+<tr>
+<td><code>weekday</code></td>
+<td>Day of week (0=Monday … 6=Sunday)</td>
+</tr>
+<tr>
+<td><code>yearday</code></td>
+<td>Day of year (1–366)</td>
+</tr>
+</tbody>
+</table>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>t = now()
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>write(t[&quot;year&quot;])    # 2026
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>write(t[&quot;hour&quot;])    # 17
 </span></code></pre></div>
-<h3 id="read_file_orpath-default_value"><code>read_file_or(path, default_value)</code><a class="headerlink" href="#read_file_orpath-default_value" title="Permanent link">&para;</a></h3>
-<p>Reads a file and returns its content. Returns <code>default_value</code> if the file does not exist.</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>content = read_file_or(&quot;config.txt&quot;, &quot;&quot;)
+<h3 id="today"><code>today()</code><a class="headerlink" href="#today" title="Permanent link">&para;</a></h3>
+<p>Returns only the date part: <code>{year, month, day}</code>.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>d = today()
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>write($&quot;{d[&quot;year&quot;]}-{d[&quot;month&quot;]}-{d[&quot;day&quot;]}&quot;)   # 2026-3-22
 </span></code></pre></div>
-<h3 id="write_file_newpath-content"><code>write_file_new(path, content)</code><a class="headerlink" href="#write_file_newpath-content" title="Permanent link">&para;</a></h3>
-<p>Writes <code>content</code> to a file only if the file does not already exist. Raises an error if the file is already there.</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>write_file_new(&quot;output.txt&quot;, &quot;hello&quot;)
+<h3 id="current_time"><code>current_time()</code><a class="headerlink" href="#current_time" title="Permanent link">&para;</a></h3>
+<p>Returns only the time part: <code>{hour, min, sec, ms}</code>.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>t = current_time()
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>write($&quot;{t[&quot;hour&quot;]}:{t[&quot;min&quot;]}:{t[&quot;sec&quot;]}&quot;)   # 17:05:42
+</span></code></pre></div>
+<h3 id="stamp"><code>stamp()</code><a class="headerlink" href="#stamp" title="Permanent link">&para;</a></h3>
+<p>Returns the current Unix timestamp (seconds since 1970-01-01) as a float.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>ts = stamp()
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>write(ts)   # 1774210625.83
 </span></code></pre></div>
 <hr />
-<h2 id="lines">Lines<a class="headerlink" href="#lines" title="Permanent link">&para;</a></h2>
-<h3 id="read_linespath"><code>read_lines(path)</code><a class="headerlink" href="#read_linespath" title="Permanent link">&para;</a></h3>
-<p>Reads a file and returns its lines as a list of strings. Newlines are stripped.</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>lines = read_lines(&quot;data.txt&quot;)
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>for line in lines {
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    write(line)
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>}
+<h2 id="format">Format<a class="headerlink" href="#format" title="Permanent link">&para;</a></h2>
+<h3 id="fmtpattern"><code>fmt(pattern)</code><a class="headerlink" href="#fmtpattern" title="Permanent link">&para;</a></h3>
+<p>Formats the current date/time using a pattern string.</p>
+<table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>%Y</code></td>
+<td>Four-digit year</td>
+</tr>
+<tr>
+<td><code>%m</code></td>
+<td>Month (01–12)</td>
+</tr>
+<tr>
+<td><code>%d</code></td>
+<td>Day (01–31)</td>
+</tr>
+<tr>
+<td><code>%H</code></td>
+<td>Hour 24h (00–23)</td>
+</tr>
+<tr>
+<td><code>%M</code></td>
+<td>Minute (00–59)</td>
+</tr>
+<tr>
+<td><code>%S</code></td>
+<td>Second (00–59)</td>
+</tr>
+<tr>
+<td><code>%A</code></td>
+<td>Full weekday name</td>
+</tr>
+<tr>
+<td><code>%B</code></td>
+<td>Full month name</td>
+</tr>
+<tr>
+<td><code>%I</code></td>
+<td>Hour 12h (01–12)</td>
+</tr>
+<tr>
+<td><code>%p</code></td>
+<td>AM/PM</td>
+</tr>
+</tbody>
+</table>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>write(fmt(&quot;%Y-%m-%d&quot;))           # 2026-03-22
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>write(fmt(&quot;%H:%M:%S&quot;))           # 17:05:42
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>write(fmt(&quot;%A, %B %d %Y&quot;))       # Sunday, March 22 2026
 </span></code></pre></div>
-<h3 id="write_linespath-lines"><code>write_lines(path, lines)</code><a class="headerlink" href="#write_linespath-lines" title="Permanent link">&para;</a></h3>
-<p>Writes a list of strings to a file, one per line.</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>write_lines(&quot;out.txt&quot;, [&quot;line1&quot;, &quot;line2&quot;, &quot;line3&quot;])
+<h3 id="day_namen-day_shortn"><code>day_name(n)</code> / <code>day_short(n)</code><a class="headerlink" href="#day_namen-day_shortn" title="Permanent link">&para;</a></h3>
+<p>Returns the full or abbreviated name of a weekday (0=Monday … 6=Sunday).</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>write(day_name(0))    # Monday
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>write(day_short(6))   # Sun
 </span></code></pre></div>
-<h3 id="append_linepath-line"><code>append_line(path, line)</code><a class="headerlink" href="#append_linepath-line" title="Permanent link">&para;</a></h3>
-<p>Appends a single line to a file.</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>append_line(&quot;log.txt&quot;, &quot;new entry&quot;)
+<h3 id="month_namen-month_shortn"><code>month_name(n)</code> / <code>month_short(n)</code><a class="headerlink" href="#month_namen-month_shortn" title="Permanent link">&para;</a></h3>
+<p>Returns the full or abbreviated name of a month (1–12).</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>write(month_name(3))    # March
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>write(month_short(12))  # Dec
 </span></code></pre></div>
-<h3 id="count_linespath"><code>count_lines(path)</code><a class="headerlink" href="#count_linespath" title="Permanent link">&para;</a></h3>
-<p>Returns the number of lines in a file.</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>write(count_lines(&quot;data.txt&quot;))   # 42
-</span></code></pre></div>
-<h3 id="read_linepath-n"><code>read_line(path, n)</code><a class="headerlink" href="#read_linepath-n" title="Permanent link">&para;</a></h3>
-<p>Returns the nth line of a file (0-indexed). Raises an error if <code>n</code> is out of range.</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>first = read_line(&quot;data.txt&quot;, 0)
+<h3 id="is_leapyr"><code>is_leap(yr)</code><a class="headerlink" href="#is_leapyr" title="Permanent link">&para;</a></h3>
+<p>Returns <code>true</code> if the given year is a leap year.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>write(is_leap(2024))   # true
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>write(is_leap(2025))   # false
 </span></code></pre></div>
 <hr />
-<h2 id="csv">CSV<a class="headerlink" href="#csv" title="Permanent link">&para;</a></h2>
-<h3 id="read_csvpath"><code>read_csv(path)</code><a class="headerlink" href="#read_csvpath" title="Permanent link">&para;</a></h3>
-<p>Reads a CSV file and returns a list of rows. Each row is a list of strings. The first row is the header.</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>rows = read_csv(&quot;data.csv&quot;)
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>for row in rows {
-</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>    write(row[0])
-</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>}
+<h2 id="calc">Calc<a class="headerlink" href="#calc" title="Permanent link">&para;</a></h2>
+<h3 id="sincets"><code>since(ts)</code><a class="headerlink" href="#sincets" title="Permanent link">&para;</a></h3>
+<p>Returns the seconds elapsed since a Unix timestamp.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>start = stamp()
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a># ... do something ...
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>write(since(start))   # 0.003
 </span></code></pre></div>
-<h3 id="read_csv_dictpath"><code>read_csv_dict(path)</code><a class="headerlink" href="#read_csv_dictpath" title="Permanent link">&para;</a></h3>
-<p>Reads a CSV file as a list of dictionaries, using the first row as keys.</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>records = read_csv_dict(&quot;people.csv&quot;)
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>for record in records {
-</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>    write(record[&quot;name&quot;])
-</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>}
+<h3 id="diffts1-ts2"><code>diff(ts1, ts2)</code><a class="headerlink" href="#diffts1-ts2" title="Permanent link">&para;</a></h3>
+<p>Returns the absolute difference in seconds between two timestamps.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>write(diff(1000, 1600))   # 600
 </span></code></pre></div>
-<h3 id="write_csvpath-rows"><code>write_csv(path, rows)</code><a class="headerlink" href="#write_csvpath-rows" title="Permanent link">&para;</a></h3>
-<p>Writes a list of rows (list of lists) to a CSV file.</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>data = [[&quot;name&quot;, &quot;age&quot;], [&quot;Alice&quot;, &quot;30&quot;], [&quot;Bob&quot;, &quot;25&quot;]]
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>write_csv(&quot;output.csv&quot;, data)
+<h3 id="add_secsts-n-add_minsts-n-add_hoursts-n-add_daysts-n"><code>add_secs(ts, n)</code> / <code>add_mins(ts, n)</code> / <code>add_hours(ts, n)</code> / <code>add_days(ts, n)</code><a class="headerlink" href="#add_secsts-n-add_minsts-n-add_hoursts-n-add_daysts-n" title="Permanent link">&para;</a></h3>
+<p>Returns a new timestamp offset by the given amount.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>ts = stamp()
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>tomorrow = add_days(ts, 1)
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>next_hour = add_hours(ts, 1)
+</span></code></pre></div>
+<h3 id="from_stampts"><code>from_stamp(ts)</code><a class="headerlink" href="#from_stampts" title="Permanent link">&para;</a></h3>
+<p>Converts a Unix timestamp to a time dict (same format as <code>now()</code>).</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>t = from_stamp(0)
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>write(t[&quot;year&quot;])   # 1970
+</span></code></pre></div>
+<h3 id="parse_stampdate_str-pattern"><code>parse_stamp(date_str, pattern)</code><a class="headerlink" href="#parse_stampdate_str-pattern" title="Permanent link">&para;</a></h3>
+<p>Parses a date string into a Unix timestamp.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>ts = parse_stamp(&quot;2025-01-15&quot;, &quot;%Y-%m-%d&quot;)
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>write(from_stamp(ts)[&quot;year&quot;])   # 2025
+</span></code></pre></div>
+<h3 id="to_secsh-m-s"><code>to_secs(h, m, s)</code><a class="headerlink" href="#to_secsh-m-s" title="Permanent link">&para;</a></h3>
+<p>Converts hours, minutes, seconds to total seconds.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>write(to_secs(1, 30, 0))   # 5400
+</span></code></pre></div>
+<h3 id="from_secstotal"><code>from_secs(total)</code><a class="headerlink" href="#from_secstotal" title="Permanent link">&para;</a></h3>
+<p>Breaks a total seconds value into <code>{hours, mins, secs}</code>.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>parts = from_secs(3725)
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>write(parts[&quot;hours&quot;])   # 1
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>write(parts[&quot;mins&quot;])    # 2
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>write(parts[&quot;secs&quot;])    # 5
 </span></code></pre></div>
 
 
@@ -1841,7 +2050,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../random/" class="md-footer__link md-footer__link--prev" aria-label="Previous: luz-random">
+          <a href="../system/" class="md-footer__link md-footer__link--prev" aria-label="Previous: luz-system">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1851,20 +2060,20 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                luz-random
+                luz-system
               </div>
             </div>
           </a>
         
         
           
-          <a href="../system/" class="md-footer__link md-footer__link--next" aria-label="Next: luz-system">
+          <a href="../../ray/" class="md-footer__link md-footer__link--next" aria-label="Next: Ray Package Manager">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                luz-system
+                Ray Package Manager
               </div>
             </div>
             <div class="md-footer__button md-icon">

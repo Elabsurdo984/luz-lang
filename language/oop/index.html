@@ -48,8 +48,8 @@
         
         
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
-        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
       
     
     
@@ -90,7 +90,9 @@
     
       
 
-<header class="md-header" data-md-component="header">
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="../.." title="Luz Language" class="md-header__button md-logo" aria-label="Luz Language" data-md-component="logo">
       
@@ -168,6 +170,11 @@
       </label>
       <nav class="md-search__options" aria-label="Search">
         
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
         <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
           
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
@@ -206,14 +213,8 @@
     
   </nav>
   
-</header>
     
-    <div class="md-container" data-md-component="container">
       
-      
-        
-          
-            
 <nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
   <div class="md-grid">
     <ul class="md-tabs__list">
@@ -268,6 +269,8 @@
           
   
   
+    
+  
   Getting Started
 
         </a>
@@ -289,6 +292,8 @@
         <a href="../types/" class="md-tabs__link">
           
   
+  
+    
   
   Language Reference
 
@@ -328,6 +333,8 @@
         <a href="../../stdlib/math/" class="md-tabs__link">
           
   
+  
+    
   
   Standard Library
 
@@ -378,7 +385,13 @@
     </ul>
   </div>
 </nav>
-          
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
         
       
       <main class="md-main" data-md-component="main">
@@ -481,6 +494,12 @@
   
     
     
+      
+        
+      
+        
+      
+    
     
     
       
@@ -493,7 +512,9 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
         
           
           <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
@@ -597,6 +618,30 @@
   
   
     
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
     
     
@@ -922,7 +967,9 @@
       
         
 
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
   
   
   
@@ -931,7 +978,7 @@
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
-      Table of contents
+      On this page
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
@@ -1141,6 +1188,18 @@
   
     
     
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
     
     
       
@@ -1153,7 +1212,9 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
         
           
           <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
@@ -1297,6 +1358,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../stdlib/clock/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    luz-clock
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1371,7 +1460,9 @@
                   <div class="md-sidebar__inner">
                     
 
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
   
   
   
@@ -1380,7 +1471,7 @@
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
-      Table of contents
+      On this page
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
@@ -1505,104 +1596,104 @@
 
 <h1 id="object-oriented-programming">Object-Oriented Programming<a class="headerlink" href="#object-oriented-programming" title="Permanent link">&para;</a></h1>
 <h2 id="defining-a-class">Defining a class<a class="headerlink" href="#defining-a-class" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>class Animal {
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    function init(self, name) {
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>        self.name = name
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    }
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    function speak(self) {
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>        write($&quot;{self.name} makes a sound&quot;)
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    }
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>}
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>class Animal {
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    function init(self, name) {
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>        self.name = name
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    }
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    function speak(self) {
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>        write($&quot;{self.name} makes a sound&quot;)
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    }
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>}
+</span></code></pre></div>
 <ul>
 <li><code>init</code> is the constructor. It is called automatically when the class is instantiated.</li>
 <li><code>self</code> refers to the current instance and must be the first parameter of every method.</li>
 <li>Attributes are created by assigning to <code>self.attribute_name</code>.</li>
 </ul>
 <h2 id="creating-instances">Creating instances<a class="headerlink" href="#creating-instances" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>a = Animal(&quot;Leo&quot;)
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>a.speak()          # Leo makes a sound
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>write(a.name)      # Leo
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>a = Animal(&quot;Leo&quot;)
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>a.speak()          # Leo makes a sound
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>write(a.name)      # Leo
+</span></code></pre></div>
 <h2 id="attributes">Attributes<a class="headerlink" href="#attributes" title="Permanent link">&para;</a></h2>
 <p>Attributes can be set on instances at any time:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>a.age = 5
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>write(a.age)   # 5
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>a.age = 5
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>write(a.age)   # 5
+</span></code></pre></div>
 <h2 id="inheritance">Inheritance<a class="headerlink" href="#inheritance" title="Permanent link">&para;</a></h2>
 <p>Use <code>extends</code> to inherit from a parent class. The child class automatically inherits all parent methods.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>class Dog extends Animal {
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    function init(self, name, breed) {
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>        super.init(name)
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>        self.breed = breed
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    }
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    function speak(self) {
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>        super.speak()
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>        write(&quot;(woof!)&quot;)
-<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>    }
-<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>}
-<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>
-<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>d = Dog(&quot;Rex&quot;, &quot;Labrador&quot;)
-<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>d.speak()
-<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a># Rex makes a sound
-<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a># (woof!)
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>class Dog extends Animal {
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    function init(self, name, breed) {
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>        super.init(name)
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>        self.breed = breed
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    }
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    function speak(self) {
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>        super.speak()
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>        write(&quot;(woof!)&quot;)
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>    }
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>}
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>d = Dog(&quot;Rex&quot;, &quot;Labrador&quot;)
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>d.speak()
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a># Rex makes a sound
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a># (woof!)
+</span></code></pre></div>
 <h2 id="super">super<a class="headerlink" href="#super" title="Permanent link">&para;</a></h2>
 <p><code>super</code> gives access to the parent class's methods from inside a child method. Call parent methods with <code>super.method_name(args)</code>.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>class Cat extends Animal {
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    function speak(self) {
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>        super.speak()   # calls Animal.speak
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>        write(&quot;(meow!)&quot;)
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    }
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>}
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>class Cat extends Animal {
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    function speak(self) {
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>        super.speak()   # calls Animal.speak
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>        write(&quot;(meow!)&quot;)
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    }
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>}
+</span></code></pre></div>
 <h2 id="method-overriding">Method overriding<a class="headerlink" href="#method-overriding" title="Permanent link">&para;</a></h2>
 <p>Defining a method with the same name in a child class replaces the parent's version:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>class GuideDog extends Dog {
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    function speak(self) {
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>        write($&quot;{self.name} is a guide dog and stays quiet.&quot;)
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    }
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>}
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>
-<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>g = GuideDog(&quot;Buddy&quot;, &quot;Retriever&quot;)
-<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>g.speak()   # Buddy is a guide dog and stays quiet.
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>class GuideDog extends Dog {
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    function speak(self) {
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>        write($&quot;{self.name} is a guide dog and stays quiet.&quot;)
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    }
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>}
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>g = GuideDog(&quot;Buddy&quot;, &quot;Retriever&quot;)
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>g.speak()   # Buddy is a guide dog and stays quiet.
+</span></code></pre></div>
 <h2 id="instanceof">instanceof<a class="headerlink" href="#instanceof" title="Permanent link">&para;</a></h2>
 <p><code>instanceof(obj, Class)</code> returns <code>true</code> if <code>obj</code> is an instance of <code>Class</code> or any of its subclasses. It walks the full inheritance hierarchy:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>write(instanceof(d, Dog))     # true
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>write(instanceof(d, Animal))  # true  (Dog extends Animal)
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>write(instanceof(d, Cat))     # false
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>write(instanceof(d, Dog))     # true
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>write(instanceof(d, Animal))  # true  (Dog extends Animal)
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>write(instanceof(d, Cat))     # false
+</span></code></pre></div>
 <h2 id="typeof">typeof<a class="headerlink" href="#typeof" title="Permanent link">&para;</a></h2>
 <p><code>typeof(value)</code> returns the type name as a string. For class instances it returns the class name:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>write(typeof(d))    # Dog
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>write(typeof(42))   # int
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>write(typeof(d))    # Dog
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>write(typeof(42))   # int
+</span></code></pre></div>
 <h2 id="polymorphism">Polymorphism<a class="headerlink" href="#polymorphism" title="Permanent link">&para;</a></h2>
 <p>Because Luz is dynamically typed, any object with the right methods can be used interchangeably:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>class Shape {
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>    function area(self) { return 0 }
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>}
-<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>
-<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>class Circle extends Shape {
-<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>    function init(self, r) { self.r = r }
-<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>    function area(self) { return self.r * self.r * 3 }
-<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>}
-<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>
-<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>class Rectangle extends Shape {
-<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>    function init(self, w, h) { self.w = w   self.h = h }
-<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>    function area(self) { return self.w * self.h }
-<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>}
-<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>
-<a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>shapes = [Circle(5), Rectangle(4, 6)]
-<a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a>for shape in shapes {
-<a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a>    write(shape.area())
-<a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a>}
-<a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a># 75
-<a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a># 24
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>class Shape {
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>    function area(self) { return 0 }
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>}
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>class Circle extends Shape {
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>    function init(self, r) { self.r = r }
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>    function area(self) { return self.r * self.r * 3 }
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>}
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>class Rectangle extends Shape {
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>    function init(self, w, h) { self.w = w   self.h = h }
+</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>    function area(self) { return self.w * self.h }
+</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>}
+</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>
+</span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>shapes = [Circle(5), Rectangle(4, 6)]
+</span><span id="__span-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a>for shape in shapes {
+</span><span id="__span-8-17"><a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a>    write(shape.area())
+</span><span id="__span-8-18"><a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a>}
+</span><span id="__span-8-19"><a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a># 75
+</span><span id="__span-8-20"><a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a># 24
+</span></code></pre></div>
 
 
 
@@ -1620,6 +1711,8 @@
             </div>
           
           
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
         
@@ -1632,6 +1725,46 @@
       </main>
       
         <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../collections/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Collections">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Collections
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../error-handling/" class="md-footer__link md-footer__link--next" aria-label="Next: Error Handling">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Error Handling
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
@@ -1654,11 +1787,13 @@
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
     
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.highlight", "search.suggest", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.indexes", "navigation.top", "navigation.footer", "search.highlight", "search.suggest", "search.share", "content.code.copy", "content.code.annotate", "content.tabs.link", "content.tooltips", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
       <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>

@@ -46,8 +46,8 @@
         
         
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
-        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
       
     
     
@@ -88,7 +88,9 @@
     
       
 
-<header class="md-header" data-md-component="header">
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href=".." title="Luz Language" class="md-header__button md-logo" aria-label="Luz Language" data-md-component="logo">
       
@@ -166,6 +168,11 @@
       </label>
       <nav class="md-search__options" aria-label="Search">
         
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
         <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
           
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
@@ -204,14 +211,8 @@
     
   </nav>
   
-</header>
     
-    <div class="md-container" data-md-component="container">
       
-      
-        
-          
-            
 <nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
   <div class="md-grid">
     <ul class="md-tabs__list">
@@ -266,6 +267,8 @@
           
   
   
+    
+  
   Getting Started
 
         </a>
@@ -285,6 +288,8 @@
         <a href="../language/types/" class="md-tabs__link">
           
   
+  
+    
   
   Language Reference
 
@@ -324,6 +329,8 @@
         <a href="../stdlib/math/" class="md-tabs__link">
           
   
+  
+    
   
   Standard Library
 
@@ -376,7 +383,13 @@
     </ul>
   </div>
 </nav>
-          
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
         
       
       <main class="md-main" data-md-component="main">
@@ -479,6 +492,12 @@
   
     
     
+      
+        
+      
+        
+      
+    
     
     
       
@@ -491,7 +510,9 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
         
           
           <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
@@ -594,6 +615,30 @@
   
     
     
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
     
     
       
@@ -606,7 +651,9 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
         
           
           <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
@@ -988,6 +1035,18 @@
   
     
     
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
     
     
       
@@ -1000,7 +1059,9 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
         
           
           <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
@@ -1144,6 +1205,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../stdlib/clock/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    luz-clock
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1231,7 +1320,9 @@
       
         
 
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
   
   
   
@@ -1240,7 +1331,7 @@
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
-      Table of contents
+      On this page
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
@@ -1320,7 +1411,9 @@
                   <div class="md-sidebar__inner">
                     
 
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
   
   
   
@@ -1329,7 +1422,7 @@
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
-      Table of contents
+      On this page
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
@@ -1410,20 +1503,20 @@
 
 <h1 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h1>
 <p>Luz follows a classic three-stage interpreter pipeline:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Source code (text)
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>      |
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>   [Lexer]         luz/lexer.py
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>      |
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a> Token stream
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>      |
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>   [Parser]        luz/parser.py
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>      |
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>  AST (tree)
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>      |
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a> [Interpreter]     luz/interpreter.py
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>      |
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>   Result
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Source code (text)
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>      |
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>   [Lexer]         luz/lexer.py
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>      |
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a> Token stream
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>      |
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>   [Parser]        luz/parser.py
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>      |
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>  AST (tree)
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>      |
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a> [Interpreter]     luz/interpreter.py
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>      |
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>   Result
+</span></code></pre></div>
 <h2 id="lexer-luzlexerpy">Lexer (<code>luz/lexer.py</code>)<a class="headerlink" href="#lexer-luzlexerpy" title="Permanent link">&para;</a></h2>
 <p>Converts raw source text into a flat list of <code>Token</code> objects.</p>
 <ul>
@@ -1435,9 +1528,9 @@
 <h2 id="parser-luzparserpy">Parser (<code>luz/parser.py</code>)<a class="headerlink" href="#parser-luzparserpy" title="Permanent link">&para;</a></h2>
 <p>Consumes the token stream and builds an <strong>Abstract Syntax Tree (AST)</strong> using a <strong>recursive descent parser</strong>.</p>
 <p>Operator precedence is enforced through a chain of parsing functions, each calling the next higher-precedence level:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>logical_or → logical_and → logical_not → comparison
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>           → arithmetic → term → power → factor
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>logical_or → logical_and → logical_not → comparison
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>           → arithmetic → term → power → factor
+</span></code></pre></div>
 <p>Each node type (<code>BinOpNode</code>, <code>IfNode</code>, <code>CallNode</code>, <code>ClassDefNode</code>, etc.) is a plain Python class defined at the top of the file. Nodes hold references to their child nodes, forming a tree.</p>
 <p>Format string parsing: the lexer stores raw template text; the parser splits it on <code>{...}</code> (tracking brace depth for nesting), then sub-parses each embedded expression using a fresh <code>Lexer</code> + <code>Parser</code>.</p>
 <h2 id="interpreter-luzinterpreterpy">Interpreter (<code>luz/interpreter.py</code>)<a class="headerlink" href="#interpreter-luzinterpreterpy" title="Permanent link">&para;</a></h2>
@@ -1478,31 +1571,31 @@
 <p><strong>Control flow signals</strong> (<code>return</code>, <code>break</code>, <code>continue</code>) are implemented as Python exceptions that propagate up the call stack and are caught at the appropriate node handler.</p>
 <h2 id="error-system-luzexceptionspy">Error system (<code>luz/exceptions.py</code>)<a class="headerlink" href="#error-system-luzexceptionspy" title="Permanent link">&para;</a></h2>
 <p>All errors inherit from <code>LuzError</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>LuzError
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>├── SyntaxFault       (lexer / parser errors)
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>├── SemanticFault     (type errors, undefined variables, wrong argument count…)
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>│   ├── AttributeNotFoundFault
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>│   └── ArityFault
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>├── RuntimeFault      (division by zero, index out of bounds…)
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>├── CastFault         (failed type conversion)
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>└── UserFault         (raised by the alert keyword)
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>LuzError
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>├── SyntaxFault       (lexer / parser errors)
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>├── SemanticFault     (type errors, undefined variables, wrong argument count…)
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>│   ├── AttributeNotFoundFault
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>│   └── ArityFault
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>├── RuntimeFault      (division by zero, index out of bounds…)
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>├── CastFault         (failed type conversion)
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>└── UserFault         (raised by the alert keyword)
+</span></code></pre></div>
 <p>Every error carries a <code>line</code> attribute that is attached when the error propagates through <code>visit()</code>.</p>
 <h2 id="file-overview">File overview<a class="headerlink" href="#file-overview" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>luz-lang/
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>├── main.py               # Entry point: REPL and file execution
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>├── luz/
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>│   ├── tokens.py         # TokenType enum and Token class
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>│   ├── lexer.py          # Lexer: text → tokens
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>│   ├── parser.py         # Parser: tokens → AST + all AST node classes
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>│   ├── interpreter.py    # Interpreter: executes the AST
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>│   └── exceptions.py     # Full error class hierarchy
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>├── tests/
-<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>│   └── test_suite.py     # Test suite
-<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>├── docs/                 # This documentation (MkDocs)
-<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>├── vscode-luz/           # VS Code syntax highlighting extension
-<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>└── examples/             # Example programs
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>luz-lang/
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>├── main.py               # Entry point: REPL and file execution
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>├── luz/
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>│   ├── tokens.py         # TokenType enum and Token class
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>│   ├── lexer.py          # Lexer: text → tokens
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>│   ├── parser.py         # Parser: tokens → AST + all AST node classes
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>│   ├── interpreter.py    # Interpreter: executes the AST
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>│   └── exceptions.py     # Full error class hierarchy
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>├── tests/
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>│   └── test_suite.py     # Test suite
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>├── docs/                 # This documentation (MkDocs)
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>├── vscode-luz/           # VS Code syntax highlighting extension
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>└── examples/             # Example programs
+</span></code></pre></div>
 
 
 
@@ -1520,6 +1613,8 @@
             </div>
           
           
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
         
@@ -1532,6 +1627,30 @@
       </main>
       
         <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../ray/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Ray Package Manager">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Ray Package Manager
+              </div>
+            </div>
+          </a>
+        
+        
+      </nav>
+    
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
@@ -1554,11 +1673,13 @@
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
     
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.highlight", "search.suggest", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.indexes", "navigation.top", "navigation.footer", "search.highlight", "search.suggest", "search.share", "content.code.copy", "content.code.annotate", "content.tabs.link", "content.tooltips", "toc.follow"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
       <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>

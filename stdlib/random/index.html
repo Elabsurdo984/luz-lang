@@ -48,8 +48,8 @@
         
         
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
-        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
       
     
     
@@ -90,7 +90,9 @@
     
       
 
-<header class="md-header" data-md-component="header">
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="../.." title="Luz Language" class="md-header__button md-logo" aria-label="Luz Language" data-md-component="logo">
       
@@ -168,6 +170,11 @@
       </label>
       <nav class="md-search__options" aria-label="Search">
         
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
         <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
           
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
@@ -206,14 +213,8 @@
     
   </nav>
   
-</header>
     
-    <div class="md-container" data-md-component="container">
       
-      
-        
-          
-            
 <nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
   <div class="md-grid">
     <ul class="md-tabs__list">
@@ -268,6 +269,8 @@
           
   
   
+    
+  
   Getting Started
 
         </a>
@@ -287,6 +290,8 @@
         <a href="../../language/types/" class="md-tabs__link">
           
   
+  
+    
   
   Language Reference
 
@@ -328,6 +333,8 @@
         <a href="../math/" class="md-tabs__link">
           
   
+  
+    
   
   Standard Library
 
@@ -378,7 +385,13 @@
     </ul>
   </div>
 </nav>
-          
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
         
       
       <main class="md-main" data-md-component="main">
@@ -481,6 +494,12 @@
   
     
     
+      
+        
+      
+        
+      
+    
     
     
       
@@ -493,7 +512,9 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
         
           
           <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
@@ -596,6 +617,30 @@
   
     
     
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
     
     
       
@@ -608,7 +653,9 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
         
           
           <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
@@ -992,6 +1039,18 @@
   
     
     
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
     
     
       
@@ -1120,7 +1179,9 @@
       
         
 
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
   
   
   
@@ -1129,7 +1190,7 @@
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
-      Table of contents
+      On this page
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
@@ -1519,6 +1580,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../clock/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    luz-clock
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1593,7 +1682,9 @@
                   <div class="md-sidebar__inner">
                     
 
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
   
   
   
@@ -1602,7 +1693,7 @@
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
-      Table of contents
+      On this page
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
@@ -1949,115 +2040,115 @@
 
 <h1 id="luz-random">luz-random<a class="headerlink" href="#luz-random" title="Permanent link">&para;</a></h1>
 <p>Random number and data generation library included with Luz. No installation needed.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>import &quot;random&quot;
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>import &quot;random&quot;
+</span></code></pre></div>
 <hr />
 <h2 id="core">Core<a class="headerlink" href="#core" title="Permanent link">&para;</a></h2>
 <h3 id="random"><code>random()</code><a class="headerlink" href="#random" title="Permanent link">&para;</a></h3>
 <p>Random float between <code>0.0</code> and <code>1.0</code>.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>write(random())   # e.g. 0.7341
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>write(random())   # e.g. 0.7341
+</span></code></pre></div>
 <h3 id="random_floatlow-high"><code>random_float(low, high)</code><a class="headerlink" href="#random_floatlow-high" title="Permanent link">&para;</a></h3>
 <p>Random float in the range <code>[low, high)</code>.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>write(random_float(1.0, 5.0))
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>write(random_float(1.0, 5.0))
+</span></code></pre></div>
 <h3 id="random_intlow-high"><code>random_int(low, high)</code><a class="headerlink" href="#random_intlow-high" title="Permanent link">&para;</a></h3>
 <p>Random integer in the range <code>[low, high]</code> inclusive.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>write(random_int(1, 100))   # e.g. 42
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>write(random_int(1, 100))   # e.g. 42
+</span></code></pre></div>
 <h3 id="random_boolchance"><code>random_bool(chance)</code><a class="headerlink" href="#random_boolchance" title="Permanent link">&para;</a></h3>
 <p>Returns <code>true</code> with the given probability (<code>0.0</code> – <code>1.0</code>).</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>write(random_bool(0.7))   # true ~70% of the time
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>write(random_bool(0.7))   # true ~70% of the time
+</span></code></pre></div>
 <h3 id="coin"><code>coin()</code><a class="headerlink" href="#coin" title="Permanent link">&para;</a></h3>
 <p>Returns <code>true</code> or <code>false</code> with equal probability.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>write(coin())
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>write(coin())
+</span></code></pre></div>
 <h3 id="random_sign"><code>random_sign()</code><a class="headerlink" href="#random_sign" title="Permanent link">&para;</a></h3>
 <p>Returns <code>1</code> or <code>-1</code> at random.</p>
 <h3 id="random_normalmean-std"><code>random_normal(mean, std)</code><a class="headerlink" href="#random_normalmean-std" title="Permanent link">&para;</a></h3>
 <p>Gaussian-distributed random value.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>write(random_normal(0, 1))   # value near 0
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>write(random_normal(0, 1))   # value near 0
+</span></code></pre></div>
 <h3 id="seedvalue"><code>seed(value)</code><a class="headerlink" href="#seedvalue" title="Permanent link">&para;</a></h3>
 <p>Set the random seed for reproducible results.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>seed(42)
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>write(random_int(1, 10))   # always the same
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>seed(42)
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>write(random_int(1, 10))   # always the same
+</span></code></pre></div>
 <hr />
 <h2 id="sequences">Sequences<a class="headerlink" href="#sequences" title="Permanent link">&para;</a></h2>
 <h3 id="picklist"><code>pick(list)</code><a class="headerlink" href="#picklist" title="Permanent link">&para;</a></h3>
 <p>Pick one random element from a list.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>colors = [&quot;red&quot;, &quot;green&quot;, &quot;blue&quot;]
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>write(pick(colors))
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>colors = [&quot;red&quot;, &quot;green&quot;, &quot;blue&quot;]
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>write(pick(colors))
+</span></code></pre></div>
 <h3 id="samplelist-n"><code>sample(list, n)</code><a class="headerlink" href="#samplelist-n" title="Permanent link">&para;</a></h3>
 <p>Pick <code>n</code> unique elements from a list (no repetition).</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>write(sample([1, 2, 3, 4, 5], 3))   # e.g. [4, 1, 3]
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>write(sample([1, 2, 3, 4, 5], 3))   # e.g. [4, 1, 3]
+</span></code></pre></div>
 <h3 id="shufflelist"><code>shuffle(list)</code><a class="headerlink" href="#shufflelist" title="Permanent link">&para;</a></h3>
 <p>Return a new shuffled copy of the list.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>deck = [1, 2, 3, 4, 5]
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>write(shuffle(deck))
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>deck = [1, 2, 3, 4, 5]
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>write(shuffle(deck))
+</span></code></pre></div>
 <h3 id="random_listn-low-high"><code>random_list(n, low, high)</code><a class="headerlink" href="#random_listn-low-high" title="Permanent link">&para;</a></h3>
 <p>Generate a list of <code>n</code> random integers.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>write(random_list(5, 1, 10))   # e.g. [3, 7, 1, 9, 4]
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>write(random_list(5, 1, 10))   # e.g. [3, 7, 1, 9, 4]
+</span></code></pre></div>
 <h3 id="weighted_picklist-weights"><code>weighted_pick(list, weights)</code><a class="headerlink" href="#weighted_picklist-weights" title="Permanent link">&para;</a></h3>
 <p>Pick a random element using a weight for each item.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>items   = [&quot;common&quot;, &quot;rare&quot;, &quot;epic&quot;]
-<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>weights = [70, 25, 5]
-<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>write(weighted_pick(items, weights))
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>items   = [&quot;common&quot;, &quot;rare&quot;, &quot;epic&quot;]
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>weights = [70, 25, 5]
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>write(weighted_pick(items, weights))
+</span></code></pre></div>
 <hr />
 <h2 id="generators">Generators<a class="headerlink" href="#generators" title="Permanent link">&para;</a></h2>
 <h3 id="random_color"><code>random_color()</code><a class="headerlink" href="#random_color" title="Permanent link">&para;</a></h3>
 <p>Returns a random hex color string.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>write(random_color())   # e.g. &quot;#a3f2c1&quot;
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>write(random_color())   # e.g. &quot;#a3f2c1&quot;
+</span></code></pre></div>
 <h3 id="random_tokenlength"><code>random_token(length)</code><a class="headerlink" href="#random_tokenlength" title="Permanent link">&para;</a></h3>
 <p>Alphanumeric random string.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>write(random_token(16))   # e.g. &quot;gT3kPxZ9mN2wLqYv&quot;
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>write(random_token(16))   # e.g. &quot;gT3kPxZ9mN2wLqYv&quot;
+</span></code></pre></div>
 <h3 id="random_pinlength"><code>random_pin(length)</code><a class="headerlink" href="#random_pinlength" title="Permanent link">&para;</a></h3>
 <p>Numeric PIN string.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>write(random_pin(4))   # e.g. &quot;7391&quot;
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>write(random_pin(4))   # e.g. &quot;7391&quot;
+</span></code></pre></div>
 <h3 id="random_uuid"><code>random_uuid()</code><a class="headerlink" href="#random_uuid" title="Permanent link">&para;</a></h3>
 <p>UUID v4-style identifier.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>write(random_uuid())   # e.g. &quot;a1b2c3d4-e5f6-4789-abcd-ef0123456789&quot;
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>write(random_uuid())   # e.g. &quot;a1b2c3d4-e5f6-4789-abcd-ef0123456789&quot;
+</span></code></pre></div>
 <hr />
 <h2 id="dice">Dice<a class="headerlink" href="#dice" title="Permanent link">&para;</a></h2>
 <h3 id="rollsides"><code>roll(sides)</code><a class="headerlink" href="#rollsides" title="Permanent link">&para;</a></h3>
 <p>Roll a die with <code>sides</code> faces.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>write(roll(6))    # 1–6
-<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>write(roll(20))   # 1–20
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>write(roll(6))    # 1–6
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>write(roll(20))   # 1–20
+</span></code></pre></div>
 <h3 id="roll_sumn-sides"><code>roll_sum(n, sides)</code><a class="headerlink" href="#roll_sumn-sides" title="Permanent link">&para;</a></h3>
 <p>Roll <code>n</code> dice and return the sum.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>write(roll_sum(3, 6))   # sum of 3d6
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>write(roll_sum(3, 6))   # sum of 3d6
+</span></code></pre></div>
 <h3 id="roll_alln-sides"><code>roll_all(n, sides)</code><a class="headerlink" href="#roll_alln-sides" title="Permanent link">&para;</a></h3>
 <p>Roll <code>n</code> dice and return all results as a list.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>write(roll_all(4, 6))   # e.g. [3, 6, 1, 4]
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>write(roll_all(4, 6))   # e.g. [3, 6, 1, 4]
+</span></code></pre></div>
 <h3 id="roll_advantagesides-roll_disadvantagesides"><code>roll_advantage(sides)</code> / <code>roll_disadvantage(sides)</code><a class="headerlink" href="#roll_advantagesides-roll_disadvantagesides" title="Permanent link">&para;</a></h3>
 <p>Roll twice and return the higher / lower result.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>write(roll_advantage(20))     # best of 2d20
-<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>write(roll_disadvantage(20))  # worst of 2d20
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>write(roll_advantage(20))     # best of 2d20
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>write(roll_disadvantage(20))  # worst of 2d20
+</span></code></pre></div>
 <h3 id="chanceprobability"><code>chance(probability)</code><a class="headerlink" href="#chanceprobability" title="Permanent link">&para;</a></h3>
 <p>Returns <code>true</code> with the given probability.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>if chance(0.1) {
-<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>    write(&quot;Critical hit!&quot;)
-<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>}
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>if chance(0.1) {
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>    write(&quot;Critical hit!&quot;)
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>}
+</span></code></pre></div>
 <h3 id="flip"><code>flip()</code><a class="headerlink" href="#flip" title="Permanent link">&para;</a></h3>
 <p>Returns <code>"heads"</code> or <code>"tails"</code>.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>write(flip())
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>write(flip())
+</span></code></pre></div>
 
 
 
@@ -2075,6 +2166,8 @@
             </div>
           
           
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
         
@@ -2087,6 +2180,46 @@
       </main>
       
         <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../math/" class="md-footer__link md-footer__link--prev" aria-label="Previous: luz-math">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                luz-math
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../io/" class="md-footer__link md-footer__link--next" aria-label="Next: luz-io">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                luz-io
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
@@ -2109,11 +2242,13 @@
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
     
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.highlight", "search.suggest", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.indexes", "navigation.top", "navigation.footer", "search.highlight", "search.suggest", "search.share", "content.code.copy", "content.code.annotate", "content.tabs.link", "content.tooltips", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
       <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
