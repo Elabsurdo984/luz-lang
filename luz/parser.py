@@ -205,13 +205,14 @@ class AnonFuncNode:
 
 # Represents a function definition: function name(args) { block }
 # arg_tokens is a list of IDENTIFIER tokens (the parameter names).
-# defaults is a parallel list: None means required, an ASTNode means optional
-# with that expression as the default value.
+# defaults is a parallel list: None means required, an ASTNode means optional.
+# variadic: if True, the last parameter collects all remaining arguments as a list.
 class FuncDefNode:
-    def __init__(self, name_token, arg_tokens, block, defaults=None):
+    def __init__(self, name_token, arg_tokens, block, defaults=None, variadic=False):
         self.name_token = name_token
         self.arg_tokens = arg_tokens
         self.defaults = defaults if defaults is not None else [None] * len(arg_tokens)
+        self.variadic = variadic  # True if the last param is ...name
         self.block = block
 
 # Represents a return statement inside a function body.
@@ -553,30 +554,45 @@ class Parser:
         # Both IDENTIFIER and SELF are valid parameter names (methods use `self`
         # as their first parameter to receive the instance at call time).
         # Parameters may have a default value: name = expr
+        # A variadic parameter ...name must be last and cannot have a default.
         # All non-default parameters must precede default ones.
         arg_tokens = []
         defaults = []
-        if self.current_token.type in (TokenType.IDENTIFIER, TokenType.SELF):
+        variadic = False
+
+        def parse_one_param():
+            """Parse a single param (name or ...name) and append to arg_tokens/defaults.
+            Returns True if this was a variadic param (caller should stop looping)."""
+            nonlocal variadic
+            if self.current_token.type == TokenType.ELLIPSIS:
+                self.advance()  # Consume '...'
+                if self.current_token.type not in (TokenType.IDENTIFIER, TokenType.SELF):
+                    raise UnexpectedTokenFault("Expected parameter name after '...'")
+                arg_tokens.append(self.current_token)
+                defaults.append(None)
+                self.advance()
+                variadic = True
+                return True  # Must be last
+            if self.current_token.type not in (TokenType.IDENTIFIER, TokenType.SELF):
+                raise UnexpectedTokenFault("Expected argument name")
             arg_tokens.append(self.current_token)
             self.advance()
             if self.current_token.type == TokenType.ASSIGN:
                 self.advance()
                 defaults.append(self.expr())
             else:
+                if any(d is not None for d in defaults):
+                    raise StructureFault("Non-default parameter cannot follow a default parameter")
                 defaults.append(None)
-            while self.current_token.type == TokenType.COMMA:
+            return False
+
+        if self.current_token.type in (TokenType.IDENTIFIER, TokenType.SELF, TokenType.ELLIPSIS):
+            done = parse_one_param()
+            while not done and self.current_token.type == TokenType.COMMA:
                 self.advance()  # Consume ','
-                if self.current_token.type not in (TokenType.IDENTIFIER, TokenType.SELF):
-                    raise UnexpectedTokenFault("Expected argument name")
-                arg_tokens.append(self.current_token)
-                self.advance()
-                if self.current_token.type == TokenType.ASSIGN:
-                    self.advance()
-                    defaults.append(self.expr())
-                else:
-                    if any(d is not None for d in defaults):
-                        raise StructureFault("Non-default parameter cannot follow a default parameter")
-                    defaults.append(None)
+                done = parse_one_param()
+            if variadic and self.current_token.type == TokenType.COMMA:
+                raise StructureFault("Variadic parameter '...' must be the last parameter")
 
         if self.current_token.type != TokenType.RPAREN:
             raise UnexpectedTokenFault("Expected ')'")
@@ -594,7 +610,7 @@ class Parser:
             raise UnexpectedTokenFault("Expected '}'")
         self.advance()  # Consume '}'
 
-        node = FuncDefNode(name_token, arg_tokens, block, defaults); node.line = line
+        node = FuncDefNode(name_token, arg_tokens, block, defaults, variadic); node.line = line
         return node
     
     def class_def(self):

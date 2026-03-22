@@ -402,8 +402,14 @@ class Lexer:
             elif self.current_char == '>':
                 tokens.append(self.make_greater_than())
             elif self.current_char == ".":
-                tokens.append(Token(TokenType.DOT, None, self.line))
-                self.advance()
+                line = self.line
+                # Check for ellipsis `...` before falling back to DOT
+                if self.pos + 2 < len(self.text) and self.text[self.pos + 1] == '.' and self.text[self.pos + 2] == '.':
+                    self.advance(); self.advance(); self.advance()
+                    tokens.append(Token(TokenType.ELLIPSIS, None, line))
+                else:
+                    tokens.append(Token(TokenType.DOT, None, line))
+                    self.advance()
 
             else:
                 # No rule matched — the character is not part of the Luz alphabet.

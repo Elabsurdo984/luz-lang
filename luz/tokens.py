@@ -113,6 +113,9 @@ class TokenType(Enum):
     MUL_ASSIGN   = auto()  # *=
     DIV_ASSIGN   = auto()  # /=
 
+    # ── Variadic ──────────────────────────────────────────────────────────────
+    ELLIPSIS = auto()  # ... — marks a variadic parameter: function f(...args)
+
     # ── Sentinel ─────────────────────────────────────────────────────────────
     EOF = auto()       # End-of-file marker; always the last token in the list
 
