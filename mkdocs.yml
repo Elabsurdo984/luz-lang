@@ -64,5 +64,7 @@ nav:
   - Standard Library:
       - luz-math: stdlib/math.md
       - luz-random: stdlib/random.md
+      - luz-io: stdlib/io.md
+      - luz-system: stdlib/system.md
   - Ray Package Manager: ray.md
   - Architecture: architecture.md

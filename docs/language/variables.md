@@ -43,9 +43,11 @@ write(x)   # still 10
 
 ## Compound assignment
 
-Luz does not have `+=` or `-=`. Use the full form:
+Luz supports `+=`, `-=`, `*=`, and `/=`:
 
 ```
-count = count + 1
-total = total * 2
+count += 1
+total *= 2
+score -= 5
+ratio /= 4
 ```

@@ -101,16 +101,40 @@ write(round(log10(100), 4)) # 2.0
 
 ## Geometry
 
-### `circle_area(r)` / `circle_perimeter(r)`
-### `rect_area(w, h)` / `rect_perimeter(w, h)`
-### `triangle_area(base, height)`
-### `hypotenuse(a, b)`
-### `distance(x1, y1, x2, y2)`
+### `hypot(a, b)`
+Returns the hypotenuse of a right triangle with legs `a` and `b`.
 
 ```
-write(circle_area(5))         # ~78.54
-write(hypotenuse(3, 4))       # 5.0
+write(hypot(3, 4))   # 5.0
+```
+
+### `distance(x1, y1, x2, y2)`
+Returns the Euclidean distance between two points.
+
+```
 write(distance(0, 0, 3, 4))   # 5.0
+```
+
+### `cbrt(x)`
+Returns the cube root of `x`. Works with negative values.
+
+```
+write(cbrt(27))    # 3.0
+write(cbrt(-8))    # -2.0
+```
+
+### `lerp(a, b, t)`
+Linear interpolation between `a` and `b` by factor `t` (0.0–1.0).
+
+```
+write(lerp(0, 100, 0.25))   # 25.0
+```
+
+### `map_range(x, in_min, in_max, out_min, out_max)`
+Maps a value from one range to another.
+
+```
+write(map_range(5, 0, 10, 0, 100))   # 50.0
 ```
 
 ---
