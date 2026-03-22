@@ -387,6 +387,26 @@ class Interpreter:
     def visit_NullNode(self, node):
         return None
 
+    def visit_TernaryNode(self, node):
+        if self.visit(node.condition_node):
+            return self.visit(node.value_node)
+        return self.visit(node.else_node)
+
+    def visit_TupleNode(self, node):
+        return [self.visit(e) for e in node.elements]
+
+    def visit_DestructureAssignNode(self, node):
+        value = self.visit(node.value_node)
+        if not isinstance(value, list):
+            raise TypeViolationFault("Cannot unpack a non-list value in destructuring assignment")
+        if len(value) != len(node.var_tokens):
+            raise TypeViolationFault(
+                f"Cannot unpack {len(value)} value(s) into {len(node.var_tokens)} variable(s)"
+            )
+        for token, val in zip(node.var_tokens, value):
+            self.current_env.assign(token.value, val)
+        return None
+
     # visit_FStringNode() evaluates each expression part and concatenates
     # everything into a single string.  Null, booleans, and instances use
     # their Luz display representations rather than Python's defaults.

@@ -75,6 +75,30 @@ class BooleanNode:
 class NullNode:
     def __repr__(self): return "null"
 
+# Represents multiple values packed together: used for `return a, b` and as
+# the implicit RHS of a destructuring assignment.
+class TupleNode:
+    def __init__(self, elements):
+        self.elements = elements  # List of AST nodes
+    def __repr__(self): return f"({', '.join(repr(e) for e in self.elements)})"
+
+# Represents destructuring assignment: x, y = expr
+# var_tokens is a list of IDENTIFIER tokens; value_node is the RHS expression.
+class DestructureAssignNode:
+    def __init__(self, var_tokens, value_node):
+        self.var_tokens = var_tokens
+        self.value_node = value_node
+    def __repr__(self): return f"({', '.join(t.value for t in self.var_tokens)} = {self.value_node})"
+
+# Represents a ternary expression:  value if condition else other
+# Evaluates condition; if truthy returns value_node, otherwise else_node.
+class TernaryNode:
+    def __init__(self, value_node, condition_node, else_node):
+        self.value_node = value_node
+        self.condition_node = condition_node
+        self.else_node = else_node
+    def __repr__(self): return f"({self.value_node} if {self.condition_node} else {self.else_node})"
+
 # Represents a list literal: [expr, expr, …]
 class ListNode:
     def __init__(self, elements):
@@ -324,6 +348,13 @@ class Parser:
             expr = None
             if self.current_token.type not in (TokenType.EOF, TokenType.RBRACE):
                 expr = self.expr()
+                # `return a, b, c` — pack multiple values into a TupleNode
+                if self.current_token.type == TokenType.COMMA:
+                    values = [expr]
+                    while self.current_token.type == TokenType.COMMA:
+                        self.advance()  # Consume ','
+                        values.append(self.expr())
+                    expr = TupleNode(values); expr.line = line
             node = ReturnNode(expr); node.line = line
             return node
 
@@ -376,6 +407,32 @@ class Parser:
         }
 
         if self.current_token.type == TokenType.IDENTIFIER:
+            # Check for destructuring assignment: x, y, z = expr
+            # Scan ahead to confirm the pattern is IDENTIFIER (COMMA IDENTIFIER)+ ASSIGN
+            next_token = self.tokens[self.pos + 1] if self.pos + 1 < len(self.tokens) else None
+            if next_token and next_token.type == TokenType.COMMA:
+                i = self.pos
+                while i < len(self.tokens) and self.tokens[i].type == TokenType.IDENTIFIER:
+                    i += 1
+                    if i < len(self.tokens) and self.tokens[i].type == TokenType.COMMA:
+                        i += 1
+                    else:
+                        break
+                if i < len(self.tokens) and self.tokens[i].type == TokenType.ASSIGN:
+                    line = self.current_token.line
+                    var_tokens = []
+                    while self.current_token.type == TokenType.IDENTIFIER:
+                        var_tokens.append(self.current_token)
+                        self.advance()
+                        if self.current_token.type == TokenType.COMMA:
+                            self.advance()
+                        else:
+                            break
+                    self.advance()  # Consume '='
+                    rhs = self.expr()
+                    node = DestructureAssignNode(var_tokens, rhs); node.line = line
+                    return node
+
             # One-token lookahead: if the token after the identifier is '=' or
             # a compound assignment operator, handle it before entering expr().
             next_token = self.tokens[self.pos + 1] if self.pos + 1 < len(self.tokens) else None
@@ -667,9 +724,21 @@ class Parser:
     #       → arith_expr → term → power → factor
 
     def expr(self):
-        # Top-level expression entry point — delegates to the lowest-precedence
-        # operator level in the chain.
-        return self.logical_or()
+        # Top-level expression entry point.
+        # Ternary has the lowest precedence: value if condition else other
+        node = self.logical_or()
+        if self.current_token.type == TokenType.IF:
+            line = self.current_token.line
+            self.advance()  # Consume 'if'
+            condition = self.logical_or()
+            if self.current_token.type != TokenType.ELSE:
+                raise UnexpectedTokenFault("Expected 'else' in ternary expression")
+            self.advance()  # Consume 'else'
+            else_node = self.expr()  # Right-recursive for chaining
+            ternary = TernaryNode(node, condition, else_node)
+            ternary.line = line
+            return ternary
+        return node
 
     def logical_or(self):
         # `or` has the lowest precedence of any binary operator.
