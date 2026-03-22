@@ -282,6 +282,10 @@ class Interpreter:
         # imports and redundant re-execution of modules.
         self.imported_files = set()
 
+        # Stack of directories of files currently being executed, used to
+        # resolve imports relative to the importing file's location.
+        self._file_stack = []
+
         # current_line is updated by visit() as nodes are processed.
         # When an error is raised without a line number, this value is attached
         # to give the user a useful "error at line N" message.
@@ -650,6 +654,14 @@ class Interpreter:
                 os.path.join("luz_modules", name, f"{name}.luz"),
                 os.path.join("luz_modules", name, "main.luz"),
             ]
+            # Relative to the importing file's directory (handles sub-imports
+            # inside installed stdlib modules like math.luz → constants.luz)
+            if self._file_stack:
+                importer_dir = os.path.dirname(self._file_stack[-1])
+                candidates += [
+                    os.path.join(importer_dir, os.path.basename(file_path)),
+                    os.path.join(importer_dir, f"{name}.luz"),
+                ]
             luz_home = os.environ.get("LUZ_HOME")
             if luz_home:
                 candidates += [
@@ -705,9 +717,11 @@ class Interpreter:
             # at the top level regardless of where `import` appeared in the code.
             temp_env = self.current_env
             self.current_env = self.global_env
+            self._file_stack.append(abs_path)
             try:
                 self.visit(ast)
             finally:
+                self._file_stack.pop()
                 self.current_env = temp_env  # Restore the caller's env
 
         except LuzError as e:
