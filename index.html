@@ -51,6 +51,8 @@
       
     
     
+      <link rel="stylesheet" href="stylesheets/extra.css">
+    
     <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -67,7 +69,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="orange">
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="deep-orange" data-md-color-accent="deep-orange">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -76,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#luz-programming-language" class="md-skip">
+        <a href="#a-taste-of-luz" class="md-skip">
           Skip to content
         </a>
       
@@ -124,20 +126,20 @@
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="orange"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-orange" data-md-color-accent="deep-orange"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
     
-      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
       </label>
     
   
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-orange" data-md-color-accent="orange"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="deep-orange"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
     
-      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
       </label>
     
   
@@ -443,8 +445,6 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
-        
-      
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
@@ -489,14 +489,23 @@
   
   
   
-    
-  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
       On this page
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#a-taste-of-luz" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A taste of Luz
+      
+    </span>
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#why-luz" class="md-nav__link">
@@ -513,7 +522,7 @@
   <a href="#quick-example" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Quick Example
+        Quick example
       
     </span>
   </a>
@@ -525,28 +534,6 @@
     <span class="md-ellipsis">
       
         Features at a glance
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#download" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Download
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#get-started" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Get Started
       
     </span>
   </a>
@@ -1417,14 +1404,23 @@
   
   
   
-    
-  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
       On this page
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#a-taste-of-luz" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A taste of Luz
+      
+    </span>
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#why-luz" class="md-nav__link">
@@ -1441,7 +1437,7 @@
   <a href="#quick-example" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Quick Example
+        Quick example
       
     </span>
   </a>
@@ -1453,28 +1449,6 @@
     <span class="md-ellipsis">
       
         Features at a glance
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#download" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Download
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#get-started" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Get Started
       
     </span>
   </a>
@@ -1501,12 +1475,38 @@
   
 
 
-<p align="center">
-  <img src="img/icon.png" alt="Luz logo" width="676" height="369">
-</p>
+<div class="luz-hero">
+  <h1>Luz Language</h1>
+  <p>A lightweight, interpreted programming language designed to be simple, readable, and easy to learn.</p>
+  <div class="luz-hero-btns">
+    <a id="download-btn" href="https://github.com/Elabsurdo984/luz-lang/releases/latest" class="luz-btn-primary">Download</a>
+    <a href="getting-started/installation/" class="luz-btn-secondary">Get Started →</a>
+  </div>
+  <p style="margin-top:1.25rem;color:#555;font-size:0.85rem;" id="download-info">No Python required</p>
+</div>
 
-<h1 id="luz-programming-language">Luz Programming Language<a class="headerlink" href="#luz-programming-language" title="Permanent link">&para;</a></h1>
-<p><strong>Luz</strong> is a lightweight, interpreted programming language written in Python. It is designed to be simple, readable, and easy to learn.</p>
+<script>
+fetch("https://api.github.com/repos/Elabsurdo984/luz-lang/releases")
+  .then(r => r.json())
+  .then(releases => {
+    const isLinux = navigator.platform.toLowerCase().includes("linux");
+    const winRelease = releases.find(r => r.tag_name.startsWith("win-v"));
+    const linuxRelease = releases.find(r => r.tag_name.startsWith("linux-v"));
+    const winAsset = winRelease?.assets.find(a => a.name.endsWith("-setup.exe"));
+    const linuxAsset = linuxRelease?.assets.find(a => a.name.endsWith(".tar.gz"));
+    const asset = isLinux ? (linuxAsset || winAsset) : (winAsset || linuxAsset);
+    const tag = isLinux ? linuxRelease?.tag_name : winRelease?.tag_name;
+    if (asset) {
+      const label = asset.name.endsWith(".exe") ? "🪟 Download for Windows" : "🐧 Download for Linux";
+      document.getElementById("download-btn").href = asset.browser_download_url;
+      document.getElementById("download-btn").textContent = label;
+      document.getElementById("download-info").textContent = (tag || "") + " · No Python required";
+    }
+  });
+</script>
+
+<hr />
+<h2 id="a-taste-of-luz">A taste of Luz<a class="headerlink" href="#a-taste-of-luz" title="Permanent link">&para;</a></h2>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>name = listen(&quot;What is your name? &quot;)
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>write($&quot;Hello {name}!&quot;)
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
@@ -1518,16 +1518,43 @@
 </span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    }
 </span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>}
 </span></code></pre></div>
+<hr />
 <h2 id="why-luz">Why Luz?<a class="headerlink" href="#why-luz" title="Permanent link">&para;</a></h2>
-<ul>
-<li><strong>No boilerplate</strong> — variables need no declaration keyword, blocks use <code>{ }</code></li>
-<li><strong>Readable syntax</strong> — keywords read like English (<code>for i = 1 to 10</code>, <code>attempt / rescue</code>)</li>
-<li><strong>Full OOP</strong> — classes, inheritance, method overriding, <code>super</code></li>
-<li><strong>First-class functions</strong> — lambdas, closures, higher-order functions</li>
-<li><strong>Helpful errors</strong> — every error includes the source line number</li>
-<li><strong>Zero dependencies</strong> — just Python 3.8+</li>
-</ul>
-<h2 id="quick-example">Quick Example<a class="headerlink" href="#quick-example" title="Permanent link">&para;</a></h2>
+<div class="luz-features">
+  <div class="luz-card">
+    <div class="luz-card-icon">⚡</div>
+    <h3>No boilerplate</h3>
+    <p>Variables need no declaration keyword. Blocks use <code>{ }</code>.</p>
+  </div>
+  <div class="luz-card">
+    <div class="luz-card-icon">📖</div>
+    <h3>Readable syntax</h3>
+    <p>Keywords read like English: <code>for i = 1 to 10</code>, <code>attempt / rescue</code>.</p>
+  </div>
+  <div class="luz-card">
+    <div class="luz-card-icon">🏗️</div>
+    <h3>Full OOP</h3>
+    <p>Classes, inheritance, method overriding, and <code>super</code>.</p>
+  </div>
+  <div class="luz-card">
+    <div class="luz-card-icon">🔧</div>
+    <h3>First-class functions</h3>
+    <p>Lambdas, closures, and higher-order functions.</p>
+  </div>
+  <div class="luz-card">
+    <div class="luz-card-icon">🛡️</div>
+    <h3>Helpful errors</h3>
+    <p>Every error includes the source line number.</p>
+  </div>
+  <div class="luz-card">
+    <div class="luz-card-icon">📦</div>
+    <h3>Standard library</h3>
+    <p>Math, random, I/O, system, and clock — all built in.</p>
+  </div>
+</div>
+
+<hr />
+<h2 id="quick-example">Quick example<a class="headerlink" href="#quick-example" title="Permanent link">&para;</a></h2>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>class Animal {
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    function init(self, name) {
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>        self.name = name
@@ -1547,6 +1574,7 @@
 </span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>d = Dog(&quot;Rex&quot;)
 </span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>d.speak()
 </span></code></pre></div>
+<hr />
 <h2 id="features-at-a-glance">Features at a glance<a class="headerlink" href="#features-at-a-glance" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -1561,8 +1589,24 @@
 <td><code>x = 10</code></td>
 </tr>
 <tr>
+<td>Null coalescing</td>
+<td><code>x = value ?? "default"</code></td>
+</tr>
+<tr>
 <td>Format string</td>
 <td><code>$"Hello {name}"</code></td>
+</tr>
+<tr>
+<td>List comprehension</td>
+<td><code>[x * x for x in list]</code></td>
+</tr>
+<tr>
+<td>Membership</td>
+<td><code>3 in [1, 2, 3]</code></td>
+</tr>
+<tr>
+<td>String repeat</td>
+<td><code>"ha" * 3</code></td>
 </tr>
 <tr>
 <td>For range</td>
@@ -1586,39 +1630,10 @@
 </tr>
 <tr>
 <td>Import</td>
-<td><code>import "utils.luz"</code></td>
+<td><code>import "math"</code></td>
 </tr>
 </tbody>
 </table>
-<h2 id="download">Download<a class="headerlink" href="#download" title="Permanent link">&para;</a></h2>
-<div style="text-align: center; margin: 1.5rem 0;">
-  <a id="download-btn" href="https://github.com/Elabsurdo984/luz-lang/releases/latest"
-     style="background:#e65100;color:white;padding:12px 28px;border-radius:8px;font-size:1rem;font-weight:bold;text-decoration:none;">
-    Download
-  </a>
-  <p style="margin-top:0.75rem;color:#888;font-size:0.9rem;" id="download-info">No Python required</p>
-</div>
-
-<script>
-fetch("https://api.github.com/repos/Elabsurdo984/luz-lang/releases/latest")
-  .then(r => r.json())
-  .then(data => {
-    if (!data.assets) return;
-    const isLinux = navigator.platform.toLowerCase().includes("linux");
-    const win = data.assets.find(a => a.name.endsWith("-setup.exe"));
-    const linux = data.assets.find(a => a.name.includes("linux") && a.name.endsWith(".tar.gz"));
-    const asset = isLinux ? (linux || win) : (win || linux);
-    if (asset) {
-      const label = asset.name.endsWith(".exe") ? "🪟 Download for Windows" : "🐧 Download for Linux";
-      document.getElementById("download-btn").href = asset.browser_download_url;
-      document.getElementById("download-btn").textContent = label;
-      document.getElementById("download-info").textContent = asset.name + " · No Python required";
-    }
-  });
-</script>
-
-<h2 id="get-started">Get Started<a class="headerlink" href="#get-started" title="Permanent link">&para;</a></h2>
-<p>Download the installer above, or head to <a href="getting-started/installation/">Installation</a> to run from source. Jump straight into the <a href="language/types/">Language Reference</a> to learn the syntax.</p>
 
 
 
