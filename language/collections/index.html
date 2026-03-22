@@ -930,6 +930,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#strings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Strings
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#dictionaries" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -942,21 +953,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#accessing-values" class="md-nav__link">
+  <a href="#access-and-assignment" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Accessing values
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#assigning-values" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Assigning values
+        Access and assignment
       
     </span>
   </a>
@@ -1232,6 +1232,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#strings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Strings
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#dictionaries" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1244,21 +1255,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#accessing-values" class="md-nav__link">
+  <a href="#access-and-assignment" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Accessing values
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#assigning-values" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Assigning values
+        Access and assignment
       
     </span>
   </a>
@@ -1314,19 +1314,19 @@
 
 <h1 id="collections">Collections<a class="headerlink" href="#collections" title="Permanent link">&para;</a></h1>
 <h2 id="lists">Lists<a class="headerlink" href="#lists" title="Permanent link">&para;</a></h2>
-<p>A list is an ordered, mutable sequence of values. Mixed types are allowed.</p>
+<p>A list is an ordered, mutable sequence of values.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>fruits = [&quot;apple&quot;, &quot;banana&quot;, &quot;cherry&quot;]
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>mixed  = [1, &quot;two&quot;, 3.0, true, null]
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>empty  = []
 </code></pre></div>
 <h3 id="indexing">Indexing<a class="headerlink" href="#indexing" title="Permanent link">&para;</a></h3>
-<p>Zero-based. Reading out-of-range raises a <code>RuntimeFault</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>write(fruits[0])   # apple
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>write(fruits[2])   # cherry
+<p>Zero-based. Negative indices count from the end:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>write(fruits[0])    # apple
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>write(fruits[-1])   # cherry  (last element)
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>write(fruits[-2])   # banana
 </code></pre></div>
 <h3 id="assignment-by-index">Assignment by index<a class="headerlink" href="#assignment-by-index" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>fruits[1] = &quot;mango&quot;
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>write(fruits)   # [&quot;apple&quot;, &quot;mango&quot;, &quot;cherry&quot;]
 </code></pre></div>
 <h3 id="iteration">Iteration<a class="headerlink" href="#iteration" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>for fruit in fruits {
@@ -1348,7 +1348,7 @@
 </tr>
 <tr>
 <td><code>append(list, value)</code></td>
-<td>Add element to the end (modifies in place)</td>
+<td>Add element to the end</td>
 </tr>
 <tr>
 <td><code>pop(list)</code></td>
@@ -1356,36 +1356,32 @@
 </tr>
 <tr>
 <td><code>pop(list, index)</code></td>
-<td>Remove and return the element at index</td>
+<td>Remove and return element at index</td>
 </tr>
 </tbody>
 </table>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>nums = [10, 20, 30]
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>append(nums, 40)
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>write(len(nums))     # 4
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>write(pop(nums))     # 40
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>write(pop(nums, 0))  # 10
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>write(nums)          # [20, 30]
+<hr />
+<h2 id="strings">Strings<a class="headerlink" href="#strings" title="Permanent link">&para;</a></h2>
+<p>Strings support indexing and negative indices:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>s = &quot;hello&quot;
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>write(s[0])    # h
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>write(s[-1])   # o
 </code></pre></div>
 <hr />
 <h2 id="dictionaries">Dictionaries<a class="headerlink" href="#dictionaries" title="Permanent link">&para;</a></h2>
 <p>A dictionary maps keys to values. Keys must be strings or numbers.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>person = {&quot;name&quot;: &quot;Alice&quot;, &quot;age&quot;: 30}
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>empty  = {}
 </code></pre></div>
-<h3 id="accessing-values">Accessing values<a class="headerlink" href="#accessing-values" title="Permanent link">&para;</a></h3>
+<h3 id="access-and-assignment">Access and assignment<a class="headerlink" href="#access-and-assignment" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>write(person[&quot;name&quot;])   # Alice
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>write(person[&quot;age&quot;])    # 30
-</code></pre></div>
-<h3 id="assigning-values">Assigning values<a class="headerlink" href="#assigning-values" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>person[&quot;age&quot;] = 31
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>person[&quot;city&quot;] = &quot;Madrid&quot;
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>person[&quot;age&quot;] = 31
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>person[&quot;city&quot;] = &quot;Madrid&quot;
 </code></pre></div>
 <h3 id="iteration_1">Iteration<a class="headerlink" href="#iteration_1" title="Permanent link">&para;</a></h3>
 <p>Iterating over a dictionary yields its keys:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>for key in person {
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>    write($&quot;{key}: {person[key]}&quot;)
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>}
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>for key in person {
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>    write($&quot;{key}: {person[key]}&quot;)
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>}
 </code></pre></div>
 <h3 id="dictionary-built-ins">Dictionary built-ins<a class="headerlink" href="#dictionary-built-ins" title="Permanent link">&para;</a></h3>
 <table>
@@ -1414,11 +1410,6 @@
 </tr>
 </tbody>
 </table>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>write(keys(person))      # [&quot;name&quot;, &quot;age&quot;, &quot;city&quot;]
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>write(values(person))    # [&quot;Alice&quot;, 31, &quot;Madrid&quot;]
-<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>write(remove(person, &quot;city&quot;))   # Madrid
-<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>write(len(person))       # 2
-</code></pre></div>
 
 
 

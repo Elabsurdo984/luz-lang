@@ -768,6 +768,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#ternary-operator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ternary operator
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#while" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -801,10 +812,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#break" class="md-nav__link">
+  <a href="#switch" class="md-nav__link">
     <span class="md-ellipsis">
       
-        break
+        switch
       
     </span>
   </a>
@@ -812,10 +823,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#continue" class="md-nav__link">
+  <a href="#match" class="md-nav__link">
     <span class="md-ellipsis">
       
-        continue
+        match
       
     </span>
   </a>
@@ -823,10 +834,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#pass" class="md-nav__link">
+  <a href="#break-continue-pass" class="md-nav__link">
     <span class="md-ellipsis">
       
-        pass
+        break / continue / pass
       
     </span>
   </a>
@@ -1137,6 +1148,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#ternary-operator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ternary operator
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#while" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1170,10 +1192,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#break" class="md-nav__link">
+  <a href="#switch" class="md-nav__link">
     <span class="md-ellipsis">
       
-        break
+        switch
       
     </span>
   </a>
@@ -1181,10 +1203,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#continue" class="md-nav__link">
+  <a href="#match" class="md-nav__link">
     <span class="md-ellipsis">
       
-        continue
+        match
       
     </span>
   </a>
@@ -1192,10 +1214,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#pass" class="md-nav__link">
+  <a href="#break-continue-pass" class="md-nav__link">
     <span class="md-ellipsis">
       
-        pass
+        break / continue / pass
       
     </span>
   </a>
@@ -1236,62 +1258,81 @@
 </code></pre></div>
 <ul>
 <li><code>elif</code> and <code>else</code> are optional.</li>
-<li>There is no limit to the number of <code>elif</code> branches.</li>
-<li>Braces <code>{ }</code> are always required, even for single-statement blocks.</li>
+<li>Braces <code>{ }</code> are always required.</li>
 </ul>
+<h2 id="ternary-operator">Ternary operator<a class="headerlink" href="#ternary-operator" title="Permanent link">&para;</a></h2>
+<p>A compact inline conditional that returns a value:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>label = &quot;big&quot; if x &gt; 10 else &quot;small&quot;
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>write(label)
+</code></pre></div>
+<p>Ternaries can be chained:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>grade = &quot;A&quot; if score &gt;= 90 else &quot;B&quot; if score &gt;= 80 else &quot;C&quot;
+</code></pre></div>
 <h2 id="while">while<a class="headerlink" href="#while" title="Permanent link">&para;</a></h2>
-<p>Repeats a block as long as the condition is true:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>i = 0
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>while i &lt; 5 {
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    write(i)
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    i = i + 1
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>}
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>i = 0
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>while i &lt; 5 {
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    write(i)
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    i += 1
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>}
 </code></pre></div>
 <h2 id="for-range-loop">for — range loop<a class="headerlink" href="#for-range-loop" title="Permanent link">&para;</a></h2>
-<p>Iterates from <code>start</code> to <code>end</code> <strong>inclusive</strong>, incrementing by 1:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>for i = 1 to 10 {
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    write(i)
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>}
+<p>Iterates from <code>start</code> to <code>end</code> <strong>inclusive</strong>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>for i = 1 to 10 {
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    write(i)
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>}
 </code></pre></div>
 <h2 id="for-for-each-loop">for — for-each loop<a class="headerlink" href="#for-for-each-loop" title="Permanent link">&para;</a></h2>
-<p>Iterates over the elements of a list, the characters of a string, or the keys of a dictionary:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a># List
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>fruits = [&quot;apple&quot;, &quot;banana&quot;, &quot;cherry&quot;]
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>for fruit in fruits {
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    write(fruit)
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>}
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a># String (character by character)
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>for ch in &quot;hello&quot; {
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>    write(ch)
-<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>}
-<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>
-<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a># Dictionary (iterates over keys)
-<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>for key in {&quot;a&quot;: 1, &quot;b&quot;: 2} {
-<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>    write(key)
-<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>}
-</code></pre></div>
-<h2 id="break">break<a class="headerlink" href="#break" title="Permanent link">&para;</a></h2>
-<p>Exits the innermost loop immediately:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>for i = 1 to 10 {
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    if i == 5 { break }
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    write(i)
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>}
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a># prints 1 2 3 4
-</code></pre></div>
-<h2 id="continue">continue<a class="headerlink" href="#continue" title="Permanent link">&para;</a></h2>
-<p>Skips the rest of the current iteration and moves to the next:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>for i = 1 to 10 {
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    if i == 3 { continue }
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    write(i)
+<p>Iterates over lists, string characters, or dictionary keys:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>fruits = [&quot;apple&quot;, &quot;banana&quot;, &quot;cherry&quot;]
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>for fruit in fruits {
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    write(fruit)
 <a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>}
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a># prints 1 2 4 5 6 7 8 9 10
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>for ch in &quot;hello&quot; {
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>    write(ch)
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>}
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>for key in {&quot;a&quot;: 1, &quot;b&quot;: 2} {
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>    write(key)
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>}
 </code></pre></div>
-<h2 id="pass">pass<a class="headerlink" href="#pass" title="Permanent link">&para;</a></h2>
-<p>A no-op placeholder for empty blocks. Useful when a block is syntactically required but you have nothing to put in it yet:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>if true {
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    pass
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>}
+<h2 id="switch">switch<a class="headerlink" href="#switch" title="Permanent link">&para;</a></h2>
+<p>Compares a value against multiple cases. Each case can match multiple values.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>switch x {
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    case 1 { write(&quot;one&quot;) }
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    case 2, 3 { write(&quot;two or three&quot;) }
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    else { write(&quot;other&quot;) }
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>}
+</code></pre></div>
+<ul>
+<li>Cases are checked in order; only the first match runs.</li>
+<li><code>else</code> is optional and acts as the fallback.</li>
+<li>The subject is compared with <code>==</code>.</li>
+</ul>
+<h2 id="match">match<a class="headerlink" href="#match" title="Permanent link">&para;</a></h2>
+<p>Like <code>switch</code> but is an <strong>expression</strong> — it returns a value.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>label = match x {
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>    0 =&gt; &quot;zero&quot;
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>    1 =&gt; &quot;one&quot;
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>    2, 3 =&gt; &quot;two or three&quot;
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>    _ =&gt; &quot;many&quot;
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>}
+</code></pre></div>
+<ul>
+<li><code>_</code> is the wildcard — matches anything and must be last.</li>
+<li>Each arm is <code>pattern =&gt; expression</code>.</li>
+<li>Multiple patterns per arm: <code>2, 3 =&gt; "two or three"</code>.</li>
+</ul>
+<h2 id="break-continue-pass">break / continue / pass<a class="headerlink" href="#break-continue-pass" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>for i = 1 to 10 {
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>    if i == 5 { break }       # exit the loop
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>    if i == 3 { continue }    # skip to next iteration
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>    write(i)
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>}
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>if true {
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>    pass    # no-op placeholder
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>}
 </code></pre></div>
 
 
