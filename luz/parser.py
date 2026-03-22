@@ -205,10 +205,13 @@ class AnonFuncNode:
 
 # Represents a function definition: function name(args) { block }
 # arg_tokens is a list of IDENTIFIER tokens (the parameter names).
+# defaults is a parallel list: None means required, an ASTNode means optional
+# with that expression as the default value.
 class FuncDefNode:
-    def __init__(self, name_token, arg_tokens, block):
+    def __init__(self, name_token, arg_tokens, block, defaults=None):
         self.name_token = name_token
         self.arg_tokens = arg_tokens
+        self.defaults = defaults if defaults is not None else [None] * len(arg_tokens)
         self.block = block
 
 # Represents a return statement inside a function body.
@@ -549,17 +552,31 @@ class Parser:
         # Parse the parameter list, which may be empty.
         # Both IDENTIFIER and SELF are valid parameter names (methods use `self`
         # as their first parameter to receive the instance at call time).
+        # Parameters may have a default value: name = expr
+        # All non-default parameters must precede default ones.
         arg_tokens = []
+        defaults = []
         if self.current_token.type in (TokenType.IDENTIFIER, TokenType.SELF):
             arg_tokens.append(self.current_token)
             self.advance()
-            # Additional parameters are comma-separated.
+            if self.current_token.type == TokenType.ASSIGN:
+                self.advance()
+                defaults.append(self.expr())
+            else:
+                defaults.append(None)
             while self.current_token.type == TokenType.COMMA:
                 self.advance()  # Consume ','
                 if self.current_token.type not in (TokenType.IDENTIFIER, TokenType.SELF):
                     raise UnexpectedTokenFault("Expected argument name")
                 arg_tokens.append(self.current_token)
                 self.advance()
+                if self.current_token.type == TokenType.ASSIGN:
+                    self.advance()
+                    defaults.append(self.expr())
+                else:
+                    if any(d is not None for d in defaults):
+                        raise StructureFault("Non-default parameter cannot follow a default parameter")
+                    defaults.append(None)
 
         if self.current_token.type != TokenType.RPAREN:
             raise UnexpectedTokenFault("Expected ')'")
@@ -577,7 +594,7 @@ class Parser:
             raise UnexpectedTokenFault("Expected '}'")
         self.advance()  # Consume '}'
 
-        node = FuncDefNode(name_token, arg_tokens, block); node.line = line
+        node = FuncDefNode(name_token, arg_tokens, block, defaults); node.line = line
         return node
     
     def class_def(self):

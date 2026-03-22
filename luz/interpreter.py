@@ -119,15 +119,28 @@ class LuzFunction:
     # runs the body, and catches ReturnException to extract the return value.
     # If the body completes without a `return`, None is returned implicitly.
     def __call__(self, interpreter, arguments, extra_bindings=None):
-        if len(arguments) != len(self.node.arg_tokens):
-            raise ArityFault(f"Function '{self.node.name_token.value}' expects {len(self.node.arg_tokens)} arguments, but received {len(arguments)}")
+        required = sum(1 for d in self.node.defaults if d is None)
+        total = len(self.node.arg_tokens)
+        if len(arguments) < required or len(arguments) > total:
+            if required == total:
+                raise ArityFault(f"Function '{self.node.name_token.value}' expects {total} argument(s), but received {len(arguments)}")
+            else:
+                raise ArityFault(f"Function '{self.node.name_token.value}' expects {required}–{total} argument(s), but received {len(arguments)}")
 
         # Create a new child of the closure so parameters are local to this call.
         # is_function_scope=True prevents assignments inside the body from
         # walking up into the caller's environment.
         env = Environment(self.closure, is_function_scope=True)
-        for i in range(len(self.node.arg_tokens)):
-            env.define(self.node.arg_tokens[i].value, arguments[i])
+        for i in range(total):
+            if i < len(arguments):
+                env.define(self.node.arg_tokens[i].value, arguments[i])
+            else:
+                # Evaluate the default expression in the closure environment
+                prev = interpreter.current_env
+                interpreter.current_env = self.closure
+                default_val = interpreter.visit(self.node.defaults[i])
+                interpreter.current_env = prev
+                env.define(self.node.arg_tokens[i].value, default_val)
 
         # extra_bindings lets callers inject additional names (e.g. `super`)
         # into the method's local scope without touching the parameter list.
