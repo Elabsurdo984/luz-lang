@@ -61,4 +61,8 @@ nav:
       - Error Handling: language/error-handling.md
       - Modules: language/modules.md
   - Built-in Functions: builtins.md
+  - Standard Library:
+      - luz-math: stdlib/math.md
+      - luz-random: stdlib/random.md
+  - Ray Package Manager: ray.md
   - Architecture: architecture.md
