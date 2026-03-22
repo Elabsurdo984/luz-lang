@@ -499,6 +499,17 @@ class Interpreter:
             self.current_env.assign(token.value, val)
         return None
 
+    def visit_DictDestructureAssignNode(self, node):
+        value = self.visit(node.value_node)
+        if not isinstance(value, dict):
+            raise TypeViolationFault("Dict destructuring requires a dict on the right side")
+        for token in node.key_tokens:
+            key = token.value
+            if key not in value:
+                raise InvalidUsageFault(f"Key '{key}' not found in dict during destructuring")
+            self.current_env.assign(key, value[key])
+        return None
+
     # visit_FStringNode() evaluates each expression part and concatenates
     # everything into a single string.  Null, booleans, and instances use
     # their Luz display representations rather than Python's defaults.

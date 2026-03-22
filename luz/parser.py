@@ -90,6 +90,12 @@ class DestructureAssignNode:
         self.value_node = value_node
     def __repr__(self): return f"({', '.join(t.value for t in self.var_tokens)} = {self.value_node})"
 
+class DictDestructureAssignNode:
+    def __init__(self, key_tokens, value_node):
+        self.key_tokens = key_tokens   # list of IDENTIFIER tokens (used as both key and var name)
+        self.value_node = value_node
+    def __repr__(self): return f"({{{', '.join(t.value for t in self.key_tokens)}}} = {self.value_node})"
+
 # Represents a ternary expression:  value if condition else other
 # Evaluates condition; if truthy returns value_node, otherwise else_node.
 class TernaryNode:
@@ -452,6 +458,12 @@ class Parser:
             TokenType.MUL_ASSIGN:   TokenType.MUL,
             TokenType.DIV_ASSIGN:   TokenType.DIV,
         }
+
+        # Dict destructuring: {name, age} = expr
+        # Lookahead: { (IDENTIFIER COMMA)* IDENTIFIER } =
+        if self.current_token.type == TokenType.LBRACE:
+            if self._is_dict_destructure():
+                return self.dict_destructure_assign()
 
         if self.current_token.type == TokenType.IDENTIFIER:
             # Check for destructuring assignment: x, y, z = expr
@@ -1324,6 +1336,36 @@ class Parser:
             raise UnexpectedTokenFault("Expected '}' at the end of dictionary")
         self.advance()  # Consume '}'
         node = DictNode(pairs); node.line = line
+        return node
+
+    def _is_dict_destructure(self):
+        """Scan ahead from LBRACE to check if it's {id, id, ...} = pattern."""
+        i = self.pos + 1  # skip '{'
+        if i >= len(self.tokens) or self.tokens[i].type != TokenType.IDENTIFIER:
+            return False
+        i += 1
+        while i < len(self.tokens) and self.tokens[i].type == TokenType.COMMA:
+            i += 1
+            if i >= len(self.tokens) or self.tokens[i].type != TokenType.IDENTIFIER:
+                return False
+            i += 1
+        return (i < len(self.tokens) and self.tokens[i].type == TokenType.RBRACE and
+                i + 1 < len(self.tokens) and self.tokens[i + 1].type == TokenType.ASSIGN)
+
+    def dict_destructure_assign(self):
+        line = self.current_token.line
+        self.advance()  # Consume '{'
+        key_tokens = [self.current_token]
+        self.advance()  # Consume first identifier
+        while self.current_token.type == TokenType.COMMA:
+            self.advance()  # Consume ','
+            key_tokens.append(self.current_token)
+            self.advance()  # Consume identifier
+        self.advance()  # Consume '}'
+        self.advance()  # Consume '='
+        rhs = self.expr()
+        node = DictDestructureAssignNode(key_tokens, rhs)
+        node.line = line
         return node
 
     # parse_call_args() parses the argument list inside a function/method call,
