@@ -193,7 +193,9 @@ class LuzLambda:
         self.closure = closure
         self.is_expr = is_expr
 
-    def __call__(self, interpreter, arguments, extra_bindings=None):
+    def __call__(self, interpreter, arguments, extra_bindings=None, kwargs=None):
+        if kwargs:
+            raise ArgumentFault("Lambdas do not support named arguments")
         if len(arguments) != len(self.param_tokens):
             raise ArityFault(f"Lambda expects {len(self.param_tokens)} arguments, got {len(arguments)}")
         env = Environment(self.closure, is_function_scope=True)

@@ -9,19 +9,25 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
 
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Python
+      - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          python-version: ${{ matrix.python-version }}
 
-      - name: Run tests
-        run: python run_tests.py
+      - name: Install pytest
+        run: pip install pytest
 
-      - name: Run examples (non-interactive)
+      - name: Run test suite
+        run: pytest tests/test_suite.py -v
+
+      - name: Run examples
         run: |
           python main.py examples/02_fizzbuzz.luz
           python main.py examples/03_fibonacci.luz
