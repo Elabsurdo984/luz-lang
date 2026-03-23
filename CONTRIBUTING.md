@@ -40,10 +40,20 @@ luz-lang/
 ## Running the tests
 
 ```bash
-python tests/test_suite.py
+pip install pytest
+pytest tests/test_suite.py -v
 ```
 
 All tests must pass before opening a pull request.
+
+## Lint
+
+```bash
+pip install pylint
+pylint luz/ --fail-under=9.0
+```
+
+The CI enforces a minimum pylint score of **9.0/10**. Your PR will not be merged if it drops below that. The project ships a `.pylintrc` that already silences false positives from wildcard imports and intentional style decisions, so you only need to worry about real issues.
 
 ## Making changes to the language
 
@@ -66,10 +76,11 @@ The interpreter pipeline has three stages. Depending on what you want to add:
 
 ## Opening a pull request
 
-1. Make sure all tests pass
-2. Push your branch to your fork
-3. Open a pull request against `master`
-4. Describe what you changed and why
+1. Make sure all tests pass: `pytest tests/test_suite.py -v`
+2. Make sure lint passes: `pylint luz/ --fail-under=9.0`
+3. Push your branch to your fork
+4. Open a pull request against `master`
+5. Describe what you changed and why
 
 ## Reporting bugs
 

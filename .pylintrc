@@ -1,0 +1,38 @@
+[MAIN]
+# Use multiple processes for speed
+jobs=1
+
+[MESSAGES CONTROL]
+disable=
+    # Style — intentional design decisions
+    missing-module-docstring,
+    missing-class-docstring,
+    missing-function-docstring,
+    invalid-name,               # visit_BinOpNode etc. are intentional visitor names
+    multiple-statements,        # one-liner exception classes are intentional
+    line-too-long,
+
+    # False positives from wildcard import (from .exceptions import *)
+    undefined-variable,
+
+    # AST node classes set .line after construction — intentional pattern
+    attribute-defined-outside-init,
+
+    # Exception hierarchy classes with no methods are intentional
+    too-few-public-methods,
+
+    # Relative imports used correctly inside the package
+    relative-beyond-top-level,
+
+    # Minor noise
+    useless-return,
+    raise-missing-from
+
+[FORMAT]
+max-line-length=120
+
+[DESIGN]
+# visit_BinOpNode and visit_ImportNode are large by necessity
+max-branches=25
+max-statements=80
+max-args=8

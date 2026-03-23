@@ -412,7 +412,7 @@ class Parser:
             line = self.current_token.line
             self.advance()  # consume 'from'
             if self.current_token.type != TokenType.STRING:
-                raise UnexpectedTokenFault(f"Expected module path after 'from'")
+                raise UnexpectedTokenFault("Expected module path after 'from'")
             path_token = self.current_token
             self.advance()  # consume path
             if self.current_token.type != TokenType.IMPORT:

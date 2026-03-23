@@ -148,8 +148,8 @@ class TokenType(Enum):
 #   • line  – the source line where the token appeared, used to attach
 #              meaningful line numbers to error messages later in the pipeline.
 class Token:
-    def __init__(self, type, value=None, line=None):
-        self.type = type
+    def __init__(self, token_type, value=None, line=None):
+        self.type = token_type
         self.value = value
         self.line = line
 

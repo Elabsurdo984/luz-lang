@@ -21,11 +21,14 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Install pytest
-        run: pip install pytest
+      - name: Install dependencies
+        run: pip install pytest pylint
 
       - name: Run test suite
         run: pytest tests/test_suite.py -v
+
+      - name: Lint
+        run: pylint luz/ --fail-under=9.0
 
       - name: Run examples
         run: |
