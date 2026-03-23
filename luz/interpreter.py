@@ -455,6 +455,8 @@ class Interpreter:
             if not isinstance(e, (ReturnException, BreakException, ContinueException)) and e.line is None:
                 e.line = self.current_line
             raise
+        except RecursionError:
+            raise RuntimeFault("Maximum recursion depth exceeded")
 
     # no_visit_method() is the fallback when visit() cannot find a handler for
     # a node type.  This indicates a bug in the interpreter (a node class was
