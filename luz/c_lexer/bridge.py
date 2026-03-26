@@ -217,9 +217,16 @@ def tokenize(source: str) -> list:
 
             py_type = _C_TO_PYTHON[c_type]
 
-            # value is bytes when non-NULL (TT_INT, TT_FLOAT, TT_IDENTIFIER,
-            # TT_STRING, TT_FSTRING); decode to str so callers get plain strings.
+            # value is bytes when non-NULL; decode to str first.
             value = ct.value.decode('utf-8') if ct.value else None
+
+            # The parser expects INT values to be Python int objects and FLOAT
+            # values to be Python float objects, matching the Python lexer's
+            # make_number() behaviour.
+            if py_type is TokenType.INT and value is not None:
+                value = int(value)
+            elif py_type is TokenType.FLOAT and value is not None:
+                value = float(value)
 
             tokens.append(Token(py_type, value, ct.line, ct.col))
     finally:

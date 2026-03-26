@@ -23,6 +23,16 @@ import string
 from .tokens import TokenType, Token
 from .exceptions import InvalidTokenFault
 
+# Try to load the C lexer bridge once at import time.
+# If the shared library hasn't been built yet, _USE_C_LEXER stays False
+# and every call to get_tokens() falls through to the pure-Python path.
+try:
+    from .c_lexer.bridge import available as _c_available, tokenize as _c_tokenize
+    _USE_C_LEXER = _c_available()
+except Exception:
+    _USE_C_LEXER = False
+    _c_tokenize = None
+
 
 class Lexer:
     # KEYWORDS maps every reserved word in Luz to its TokenType.
@@ -363,6 +373,12 @@ class Lexer:
     # After the loop it appends a synthetic EOF token so the parser always has
     # a well-defined stopping condition without needing bounds checks.
     def get_tokens(self):
+        # Delegate to the C lexer when the shared library is available.
+        # The returned list is identical in structure to what the Python path
+        # produces, so the parser sees no difference.
+        if _USE_C_LEXER:
+            return _c_tokenize(self.text)
+
         tokens = []
         while self.current_char is not None:
             if self.current_char.isspace():
