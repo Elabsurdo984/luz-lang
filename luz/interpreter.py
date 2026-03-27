@@ -444,6 +444,7 @@ class Interpreter:
             '_clock_fmt':        self.builtin_clock_fmt,
             '_clock_from_stamp': self.builtin_clock_from_stamp,
             '_clock_parse':      self.builtin_clock_parse,
+            '_clock_fmt_stamp':  self.builtin_clock_fmt_stamp,
         }
 
     # execute_block() runs a list of statements inside a given environment.
@@ -1926,3 +1927,7 @@ class Interpreter:
         import datetime, time
         t = datetime.datetime.strptime(str(date_str), str(fmt_str))
         return time.mktime(t.timetuple())
+    
+    def builtin_clock_fmt_stamp(self, ts, fmt_str):
+        import datetime 
+        return datetime.datetime.fromtimestamp(float(ts)).strftime(str(fmt_str))

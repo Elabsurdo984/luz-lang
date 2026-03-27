@@ -5,3 +5,4 @@
 import "libs/luz-clock/moment.luz"
 import "libs/luz-clock/format.luz"
 import "libs/luz-clock/calc.luz"
+import "libs/luz-clock/moment_class.luz"
