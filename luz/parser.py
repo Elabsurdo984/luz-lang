@@ -324,6 +324,14 @@ class MethodCallNode:
         self.arguments = arguments
         self.kwargs = kwargs or {}   # {name: expr_node}
 
+# Represents calling an arbitrary expression: expr(arg, arg, …)
+# Used for funcs[0](x), make()(y), (fn(x) => x)(5), etc.
+class ExprCallNode:
+    def __init__(self, callee_node, arguments, kwargs=None):
+        self.callee_node = callee_node
+        self.arguments = arguments
+        self.kwargs = kwargs or {}
+
 # Represents a function call: name(arg, arg, …)
 # arguments is a list of AST nodes (the evaluated argument expressions).
 class CallNode:
@@ -1178,10 +1186,20 @@ class Parser:
         else:
             raise ExpressionFault(f"Invalid expression at token: {token}")
 
-        # Single postfix loop handling any mix of index ([) and dot (.) access.
-        # This allows chains like: obj.attr[i], obj.method()[j], obj.a[i].b.c()[k]
-        while self.current_token.type in (TokenType.LBRACKET, TokenType.DOT):
-            if self.current_token.type == TokenType.LBRACKET:
+        # Single postfix loop handling index ([), dot (.), and call (() access.
+        # This allows chains like: obj.attr[i], funcs[0](x), make()(y)
+        while self.current_token.type in (TokenType.LBRACKET, TokenType.DOT, TokenType.LPAREN):
+            if self.current_token.type == TokenType.LPAREN:
+                call_line = self.current_token.line
+                call_col = self.current_token.col
+                self.advance()  # Consume '('
+                args, kwargs = self.parse_call_args()
+                if self.current_token.type != TokenType.RPAREN:
+                    raise UnexpectedTokenFault("Expected ')'")
+                self.advance()  # Consume ')'
+                node = ExprCallNode(node, args, kwargs)
+                node.line = call_line; node.col = call_col
+            elif self.current_token.type == TokenType.LBRACKET:
                 bracket_line = self.current_token.line
                 bracket_col = self.current_token.col
                 self.advance()  # Consume '['

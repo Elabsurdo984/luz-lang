@@ -1203,6 +1203,39 @@ class Interpreter:
         except Exception as e:
             raise InternalFault(str(e))
 
+    # visit_ExprCallNode() calls the result of an arbitrary expression.
+    # Covers funcs[0](x), make()(y), (fn(x) => x)(5), etc.
+    def visit_ExprCallNode(self, node):
+        callee = self.visit(node.callee_node)
+        arguments = [self.visit(arg) for arg in node.arguments]
+        kwargs = {name: self.visit(expr) for name, expr in node.kwargs.items()}
+
+        try:
+            if isinstance(callee, LuzClass):
+                instance = LuzInstance(callee)
+                init_method = callee.find_method('init')
+                if init_method is not None:
+                    extra = {}
+                    if callee.parent:
+                        extra['super'] = LuzSuperProxy(instance, callee.parent)
+                    init_method(self, [instance] + arguments, extra_bindings=extra, kwargs=kwargs)
+                return instance
+
+            if isinstance(callee, BoundMethod):
+                extra = {}
+                if callee.instance.luz_class.parent:
+                    extra['super'] = LuzSuperProxy(callee.instance, callee.instance.luz_class.parent)
+                return callee.function(self, [callee.instance] + arguments, extra_bindings=extra, kwargs=kwargs)
+
+            if isinstance(callee, (LuzFunction, LuzLambda)):
+                return callee(self, arguments, kwargs=kwargs)
+
+            raise InvalidUsageFault(f"Expression is not callable (got {type(callee).__name__})")
+        except LuzError as e:
+            raise e
+        except Exception as e:
+            raise InternalFault(str(e))
+
     # ── Built-in functions ────────────────────────────────────────────────────
     # Built-ins are implemented as Python methods so they have full access to
     # the host environment.  They receive already-evaluated Luz values as
