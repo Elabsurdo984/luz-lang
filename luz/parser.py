@@ -118,12 +118,11 @@ class ListNode:
     def __repr__(self): return f"{self.elements}"
 
 class ListCompNode:
-    def __init__(self, expr, var_token, iterable, condition=None):
-        self.expr = expr            # Output expression
-        self.var_token = var_token  # Loop variable token
-        self.iterable = iterable    # Iterable expression
+    def __init__(self, expr, clauses, condition=None):
+        self.expr = expr          # Output expression
+        self.clauses = clauses    # List of (var_token, iterable_node) — one per 'for'
         self.condition = condition  # Optional filter (if clause)
-    def __repr__(self): return f"[{self.expr} for {self.var_token.value} in {self.iterable}]"
+    def __repr__(self): return f"[{self.expr} for ...]"
 
 # Represents a dictionary literal: {key: value, …}
 class DictNode:
@@ -1354,17 +1353,21 @@ class Parser:
 
         first = self.expr()
 
-        # If the next token is 'for', this is a list comprehension
+        # If the next token is 'for', this is a list comprehension.
+        # Collect all 'for var in iterable' clauses before the optional 'if'.
         if self.current_token.type == TokenType.FOR:
-            self.advance()  # Consume 'for'
-            if self.current_token.type != TokenType.IDENTIFIER:
-                raise UnexpectedTokenFault("Expected variable name after 'for' in list comprehension")
-            var_token = self.current_token
-            self.advance()  # Consume var name
-            if self.current_token.type != TokenType.IN:
-                raise UnexpectedTokenFault("Expected 'in' after variable in list comprehension")
-            self.advance()  # Consume 'in'
-            iterable = self.expr()
+            clauses = []
+            while self.current_token.type == TokenType.FOR:
+                self.advance()  # Consume 'for'
+                if self.current_token.type != TokenType.IDENTIFIER:
+                    raise UnexpectedTokenFault("Expected variable name after 'for' in list comprehension")
+                var_token = self.current_token
+                self.advance()  # Consume var name
+                if self.current_token.type != TokenType.IN:
+                    raise UnexpectedTokenFault("Expected 'in' after variable in list comprehension")
+                self.advance()  # Consume 'in'
+                iterable = self.expr()
+                clauses.append((var_token, iterable))
             condition = None
             if self.current_token.type == TokenType.IF:
                 self.advance()  # Consume 'if'
@@ -1372,7 +1375,7 @@ class Parser:
             if self.current_token.type != TokenType.RBRACKET:
                 raise UnexpectedTokenFault("Expected ']' at the end of list comprehension")
             self.advance()  # Consume ']'
-            node = ListCompNode(first, var_token, iterable, condition)
+            node = ListCompNode(first, clauses, condition)
             node.line = line; node.col = col
             return node
 

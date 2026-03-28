@@ -609,20 +609,30 @@ class Interpreter:
         return [self.visit(element) for element in node.elements]
 
     def visit_ListCompNode(self, node):
-        iterable = self.visit(node.iterable)
-        if not isinstance(iterable, (list, str)):
-            raise TypeClashFault(f"List comprehension requires a list or string, got {type(iterable).__name__}")
         result = []
         prev_env = self.current_env
         self.current_env = Environment(parent=prev_env)
         try:
-            for item in iterable:
-                self.current_env.define(node.var_token.value, item)
-                if node.condition is None or self.visit(node.condition):
-                    result.append(self.visit(node.expr))
+            self._eval_comp_clauses(node.clauses, 0, node.condition, node.expr, result)
         finally:
             self.current_env = prev_env
         return result
+
+    # Recursively evaluates nested 'for' clauses of a list comprehension.
+    # At each level, iterates the current clause's iterable, binds the loop
+    # variable, then recurses into the next clause. When all clauses are
+    # exhausted, evaluates the filter (if any) and appends the output expression.
+    def _eval_comp_clauses(self, clauses, depth, condition, expr, result):
+        var_token, iterable_node = clauses[depth]
+        iterable = self.visit(iterable_node)
+        if not isinstance(iterable, (list, str)):
+            raise TypeClashFault(f"List comprehension requires a list or string, got {type(iterable).__name__}")
+        for item in iterable:
+            self.current_env.define(var_token.value, item)
+            if depth + 1 < len(clauses):
+                self._eval_comp_clauses(clauses, depth + 1, condition, expr, result)
+            elif condition is None or self.visit(condition):
+                result.append(self.visit(expr))
 
     def visit_DictNode(self, node):
         # Evaluate each key and value expression in order and populate a Python dict.
