@@ -684,6 +684,7 @@ class Parser:
         # All non-default parameters must precede default ones.
         arg_tokens = []
         defaults = []
+        arg_types = []
         variadic = False
 
         def parse_one_param():
@@ -696,6 +697,7 @@ class Parser:
                     raise UnexpectedTokenFault("Expected parameter name after '...'")
                 arg_tokens.append(self.current_token)
                 defaults.append(None)
+                arg_types.append(None)
                 self.advance()
                 variadic = True
                 return True  # Must be last
@@ -703,6 +705,14 @@ class Parser:
                 raise UnexpectedTokenFault("Expected argument name")
             arg_tokens.append(self.current_token)
             self.advance()
+            if self.current_token.type == TokenType.COLON:
+                self.advance()
+                if self.current_token.type != TokenType.IDENTIFIER:
+                    raise UnexpectedTokenFault("Expected type name after ':'")
+                arg_types.append(self.current_token.value)
+                self.advance()
+            else:
+                arg_types.append(None)
             if self.current_token.type == TokenType.ASSIGN:
                 self.advance()
                 defaults.append(self.expr())
@@ -724,6 +734,14 @@ class Parser:
             raise UnexpectedTokenFault("Expected ')'")
         self.advance()  # Consume ')'
 
+        return_type = None
+        if self.current_token.type == TokenType.ARROW:
+            self.advance()
+            if self.current_token.type != TokenType.IDENTIFIER:
+                raise UnexpectedTokenFault("Expected type name after '->'")
+            return_type = self.current_token.value 
+            self.advance()
+
         if self.current_token.type != TokenType.LBRACE:
             raise StructureFault("Expected '{'")
         self.advance()  # Consume '{'
@@ -736,7 +754,7 @@ class Parser:
             raise UnexpectedTokenFault("Expected '}'")
         self.advance()  # Consume '}'
 
-        node = FuncDefNode(name_token, arg_tokens, block, defaults, variadic); node.line = line; node.col = col
+        node = FuncDefNode(name_token, arg_tokens, block, defaults, variadic, arg_types, return_type); node.line = line; node.col = col
         return node
 
     # switch_stmt() parses:
